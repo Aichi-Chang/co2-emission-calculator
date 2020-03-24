@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from rest_framework import viewsets, filters
 from django.contrib.auth import get_user_model
 from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute
@@ -24,26 +23,32 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class TubeListView(APIView):
 
-    def get(self, _request):
+    def get(self, _request, format=None):
         tubeRoutes = TubeRoute.objects.all()
         serializer = TubeRouteSerializer(tubeRoutes, many=True)
 
         return Response(serializer.data)
 
-    def post(self, request):
+    def post(self, request, format=None):
         request.data['owner'] = request.user.id
         tubeRoute = TubeRouteSerializer(data=request.data)
         if tubeRoute.is_valid():
             tubeRoute.save()
-            return JsonResponse(tubeRoute.data, status=201)
-        return JsonResponse(tubeRoute.data, status=400)
+            return Response(tubeRoute.data, status=HTTP_201_CREATED)
+        return Response(tubeRoute.data, status=HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
 
 
 class TubeSingleView(APIView):
+    
 
-    def get(self, _request, pk):
+    # try:
+    #     tubeRoute = TubeRoute.objects.get(pk=pk)
+    # except TubeRoute.DoesNotExist:
+    #     return Response(status=HTTP_404_NOT_FOUND)
+
+    def get(self, _request, pk, format=None):
         tubeRoute = TubeRoute.objects.get(pk=pk)
         serializer = TubeRouteSerializer(tubeRoute)
-
         return Response(serializer.data)
+
 
