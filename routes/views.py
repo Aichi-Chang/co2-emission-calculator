@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -29,10 +30,19 @@ class TubeListView(APIView):
 
         return Response(serializer.data)
 
+    def post(self, request):
+        request.data['owner'] = request.user.id
+        tubeRoute = TubeRouteSerializer(data=request.data)
+        if tubeRoute.is_valid():
+            tubeRoute.save()
+            return JsonResponse(tubeRoute.data, status=201)
+        return JsonResponse(tubeRoute.data, status=400)
+
+
 class TubeSingleView(APIView):
 
     def get(self, _request, pk):
-        tubeRoute = TubeRoute.objects.get(pk= pk)
+        tubeRoute = TubeRoute.objects.get(pk=pk)
         serializer = TubeRouteSerializer(tubeRoute)
 
         return Response(serializer.data)
