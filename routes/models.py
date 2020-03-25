@@ -1,8 +1,13 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 # Create your models here.
 
 class TubeRoute(models.Model):
+    owner = models.ForeignKey(User, related_name='TubeRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20, default='Tube')
@@ -17,10 +22,11 @@ class TubeRoute(models.Model):
     carbonPrint = models.FloatField()
 
     def __str__(self):
-        return f'{self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
+        return f'{self.owner}: {self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
 
 
 class BusRoute(models.Model):
+    owner = models.ForeignKey(User, related_name='BusRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20, default='Bus')
@@ -35,9 +41,10 @@ class BusRoute(models.Model):
     carbonPrint = models.FloatField()
 
     def __str__(self):
-        return f'{self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
+        return f'{self.owner}: {self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
 
 class DriveRoute(models.Model):
+    owner = models.ForeignKey(User, related_name='DriveRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20, default='Drive')
@@ -52,9 +59,11 @@ class DriveRoute(models.Model):
     carbonPrint = models.FloatField()
 
     def __str__(self):
-        return f'{self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
+        return f'{self.owner}: {self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
+
 
 class CycleRoute(models.Model):
+    owner = models.ForeignKey(User, related_name='CycleRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20, default='Cycle')
@@ -69,4 +78,4 @@ class CycleRoute(models.Model):
     carbonPrint = models.FloatField()
 
     def __str__(self):
-        return f'{self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
+        return f'{self.owner}: {self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
