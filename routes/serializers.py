@@ -4,10 +4,11 @@ from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute
 
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'url', 'username', 'email']
+
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['id', 'url', 'username', 'email']
 
 
 class TubeRouteSerializer(serializers.ModelSerializer):
@@ -29,3 +30,15 @@ class CycleRouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = CycleRoute
         fields = '__all__'
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+    tubeRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=TubeRoute.objects.all())
+    busRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=BusRoute.objects.all())
+    driveRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=DriveRoute.objects.all())
+    cycleRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=CycleRoute.objects.all())
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'tubeRoutes', 'busRoutes', 'driveRoutes', 'cycleRoutes']

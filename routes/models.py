@@ -6,6 +6,9 @@ User = get_user_model()
 
 # Create your models here.
 
+
+
+
 class TubeRoute(models.Model):
     owner = models.ForeignKey(User, related_name='TubeRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
