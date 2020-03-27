@@ -1,14 +1,18 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 
 
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ['id', 'url', 'username', 'email']
+class TravelerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 
 class TubeRouteSerializer(serializers.ModelSerializer):
@@ -31,6 +35,10 @@ class CycleRouteSerializer(serializers.ModelSerializer):
         model = CycleRoute
         fields = '__all__'
 
+
+class PopulatedTubSerializer(TubeRouteSerializer):
+
+    traveler = TravelerSerializer()
 
 
 # class UserSerializer(serializers.ModelSerializer):
