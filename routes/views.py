@@ -6,18 +6,18 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from django.contrib.auth import get_user_model
 from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute
-from .serializers import UserSerializer, TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer
+from .serializers import TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer
 
 User = get_user_model()
 
 
-class UserViewSet(viewsets.ModelViewSet):
-        # """
-        # API endpoint that allows users to be viewed or edited.
-        # """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+# class UserViewSet(viewsets.ModelViewSet):
+#         # """
+#         # API endpoint that allows users to be viewed or edited.
+#         # """
+#     queryset = User.objects.all().order_by('-date_joined')
+#     serializer_class = UserSerializer
+#     permission_classes = [permissions.IsAuthenticated]
 
 
 class TubeListView(APIView):

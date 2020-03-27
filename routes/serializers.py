@@ -33,12 +33,12 @@ class CycleRouteSerializer(serializers.ModelSerializer):
 
 
 
-class UserSerializer(serializers.ModelSerializer):
-    tubeRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=TubeRoute.objects.all())
-    busRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=BusRoute.objects.all())
-    driveRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=DriveRoute.objects.all())
-    cycleRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=CycleRoute.objects.all())
+# class UserSerializer(serializers.ModelSerializer):
+#     tubeRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=TubeRoute.objects.all())
+#     busRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=BusRoute.objects.all())
+#     driveRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=DriveRoute.objects.all())
+#     cycleRoutes = serializers.PrimaryKeyRelatedField(many=True, queryset=CycleRoute.objects.all())
 
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'tubeRoutes', 'busRoutes', 'driveRoutes', 'cycleRoutes']
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'tubeRoutes', 'busRoutes', 'driveRoutes', 'cycleRoutes']
