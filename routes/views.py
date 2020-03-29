@@ -48,14 +48,18 @@ class TubeListView(APIView):
 
 class TubeSingleView(APIView):
     
-    def get_object(self, pk):
-        try:
-            return TubeRoute.objects.get(pk=pk)
-        except TubeRoute.DoesNotExist:
-            raise Http404
+    # The Method not allowed error is because, it searches for a get() method inside your API class, 
+    # and it couldn't find a one.
+
+    # def get_object(self, request, pk):
+    #     try:
+    #         tubeRoute = TubeRoute.objects.get(pk=pk)
+    #     except TubeRoute.DoesNotExist:
+    #         raise Http404
+
 
     def get(self, _request, pk, format=None):
-        tubeRoute = self.objects.get(pk=pk)
+        tubeRoute = TubeRoute.objects.get(pk=pk)
         serialized_with_user = NestedTubeRouteSerializer(tubeRoute)
         return Response(serialized_with_user.data)
 
@@ -82,11 +86,16 @@ class TubeSingleView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+# class BusListView(APIView):
+    
+#     def get()
 
-class TravelerView(APIView):
 
-    def get(self, _request):
-        traveler = User.objects.all()
+
+class TravelerSingleView(APIView):
+
+    def get(self, _request, pk):
+        traveler = User.objects.filter(id=pk)
         serialized_with_all_routes = NestedTravelerSerializer(traveler, many=True)
 
         return Response(serialized_with_all_routes.data)

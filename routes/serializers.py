@@ -16,7 +16,8 @@ class TravelBySerializer(serializers.ModelSerializer):
 class TravelerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        # tubeRoutes is hooked with models related_name
+        fields = ('id', 'username', 'tubeRoutes', 'busRoutes')
 
 
 class TubeRouteSerializer(serializers.ModelSerializer):
@@ -51,7 +52,9 @@ class NestedTubeRouteSerializer(TubeRouteSerializer):
 
 class NestedTravelerSerializer(TravelerSerializer):
 
-    tubeRoutes = TubeRouteSerializer(many=True)  
+    # hooked with models related_name
+    tubeRoutes = TubeRouteSerializer(many=True)
+    BusRoutes = BusRouteSerializer(many=True)  
 
 
 

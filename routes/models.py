@@ -16,10 +16,10 @@ class TravelBy(models.Model):
 
 
 class TubeRoute(models.Model):
-    traveler = models.ForeignKey(User, related_name='TubeRoute', on_delete=models.CASCADE, default=1)
+    traveler = models.ForeignKey(User, related_name='tubeRoutes', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='TubeRoute', on_delete=models.DO_NOTHING, default=1)
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='tubeRoutes', on_delete=models.DO_NOTHING, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -35,10 +35,10 @@ class TubeRoute(models.Model):
 
 
 class BusRoute(models.Model):
-    traveler = models.ForeignKey(User, related_name='BusRoute', on_delete=models.CASCADE, default=1)
+    traveler = models.ForeignKey(User, related_name='busRoutes', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='BusRoute', on_delete=models.DO_NOTHING, default=1)
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='busRoutes', on_delete=models.DO_NOTHING, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -53,10 +53,10 @@ class BusRoute(models.Model):
         return f'{self.traveler}: {self.travelBy} {self.depart} - {self.arrive} {self.duation} {self.direction}'
 
 class DriveRoute(models.Model):
-    traveler = models.ForeignKey(User, related_name='DriveRoute', on_delete=models.CASCADE, default=1)
+    traveler = models.ForeignKey(User, related_name='driveRoutes', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='DriveRoute', on_delete=models.DO_NOTHING, default=1)
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='driveRoutes', on_delete=models.DO_NOTHING, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -72,10 +72,10 @@ class DriveRoute(models.Model):
 
 
 class CycleRoute(models.Model):
-    traveler = models.ForeignKey(User, related_name='CycleRoute', on_delete=models.CASCADE, default=1)
+    traveler = models.ForeignKey(User, related_name='cycleRoutes', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='CycleRoute', on_delete=models.DO_NOTHING, default=1)
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='cycleRoutes', on_delete=models.DO_NOTHING, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
