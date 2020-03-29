@@ -16,14 +16,10 @@ class TravelBySerializer(serializers.ModelSerializer):
 class TravelerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        fields = ('id', 'username')
 
 
 class TubeRouteSerializer(serializers.ModelSerializer):
-
-    traveler = TravelerSerializer()
-    travelBy = TravelBySerializer()
-
     class Meta:
         model = TubeRoute
         fields = '__all__'
@@ -47,9 +43,22 @@ class CycleRouteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class PopulatedTubSerializer(TubeRouteSerializer):
+class NestedTubeRouteSerializer(TubeRouteSerializer):
 
-#     traveler = TravelerSerializer()
+    travelBy = TravelBySerializer()
+    traveler = TravelerSerializer()
+
+
+class NestedTravelerSerializer(TravelerSerializer):
+
+    tubeRoutes = TubeRouteSerializer(many=True)  
+
+
+
+
+
+
+
 
 
 

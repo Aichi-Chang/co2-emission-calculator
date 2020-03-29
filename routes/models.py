@@ -7,10 +7,10 @@ User = get_user_model()
 # Create your models here.
 
 class TravelBy(models.Model):
-    travelBy = models.CharField(max_length=20)
+    type = models.CharField(max_length=20)
 
     def __str__(self):
-        return f'{self.travelBy}'
+        return f'{self.type}'
 
 
 
