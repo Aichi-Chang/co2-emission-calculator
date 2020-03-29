@@ -4,7 +4,14 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-# Create your models here. 
+# Create your models here.
+
+class TravelBy(models.Model):
+    travelBy = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f'{self.travelBy}'
+
 
 
 
@@ -12,7 +19,7 @@ class TubeRoute(models.Model):
     traveler = models.ForeignKey(User, related_name='TubeRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.CharField(max_length=20, default='Tube')
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='TubeRoute', on_delete=models.CASCADE, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -31,7 +38,7 @@ class BusRoute(models.Model):
     traveler = models.ForeignKey(User, related_name='BusRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.CharField(max_length=20, default='Bus')
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='BusRoute', on_delete=models.CASCADE, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -49,7 +56,7 @@ class DriveRoute(models.Model):
     traveler = models.ForeignKey(User, related_name='DriveRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.CharField(max_length=20, default='Drive')
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='DriveRoute', on_delete=models.CASCADE, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()
@@ -68,7 +75,7 @@ class CycleRoute(models.Model):
     traveler = models.ForeignKey(User, related_name='CycleRoute', on_delete=models.CASCADE, default=1)
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
-    travelBy = models.CharField(max_length=20, default='Cycle')
+    travelBy = models.ForeignKey(TravelBy, max_length=20, related_name='CycleRoute', on_delete=models.CASCADE, default=1)
     departTime = models.DateTimeField(auto_now_add=True)
     arriveTime = models.DateTimeField()
     duation = models.FloatField()

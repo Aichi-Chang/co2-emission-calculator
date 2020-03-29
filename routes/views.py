@@ -6,8 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from django.contrib.auth import get_user_model
-from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute
-from .serializers import TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer, PopulatedTubSerializer
+from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute, TravelBy
+from .serializers import TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer, TravelBySerializer
 
 User = get_user_model()
 
@@ -20,12 +20,21 @@ User = get_user_model()
 #     serializer_class = UserSerializer
 #     permission_classes = [permissions.IsAuthenticated]
 
+class TravelByView(APIView):
+
+    def get(self, _request):
+        travelBy = TravelBy.objects.all()
+        serialized_with_travelBy = TravelBySerializer(travelBy, many=True)
+        return Response(serialized_with_travelBy.data)
+
+
+
 
 class TubeListView(APIView):
 
     def get(self, _request, format=None):
         tubeRoutes = TubeRoute.objects.all()
-        serialized_with_user = PopulatedTubSerializer(tubeRoutes, many=True)
+        serialized_with_user = TubeRouteSerializer(tubeRoutes, many=True)
         return Response(serialized_with_user.data)
 
     def post(self, request, format=None):
@@ -47,7 +56,7 @@ class TubeSingleView(APIView):
 
     def get(self, _request, pk, format=None):
         tubeRoute = self.objects.get(pk=pk)
-        serialized_with_user = PopulatedTubSerializer(tubeRoute)
+        serialized_with_user = TubeRouteSerializer(tubeRoute)
         return Response(serialized_with_user.data)
 
 
