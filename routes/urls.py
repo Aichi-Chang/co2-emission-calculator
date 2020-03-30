@@ -1,10 +1,12 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import TubeListView, TubeSingleView, TravelerSingleView
+from .views import TubeListView, TubeSingleView, BusListView, BusSingleView, TravelerSingleView
 
 urlpatterns = [
     path('tubes/', TubeListView.as_view()),
     path('tubes/<int:pk>/', TubeSingleView.as_view()),
+    path('bus/', BusListView.as_view()),
+    path('bus/<int:pk>/', BusSingleView.as_view()),
     path('traveler/<int:pk>/', TravelerSingleView.as_view())
 ]
 

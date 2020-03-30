@@ -47,14 +47,20 @@ class CycleRouteSerializer(serializers.ModelSerializer):
 class NestedTubeRouteSerializer(TubeRouteSerializer):
 
     travelBy = TravelBySerializer()
-    traveler = TravelerSerializer()
+    # traveler = TravelerSerializer()
+
+
+class NestedBusRouteSerializer(BusRouteSerializer):
+
+    travelBy = TravelBySerializer()
+    # traveler = TravelerSerializer()
 
 
 class NestedTravelerSerializer(TravelerSerializer):
 
     # hooked with models related_name
     tubeRoutes = TubeRouteSerializer(many=True)
-    BusRoutes = BusRouteSerializer(many=True)  
+    busRoutes = BusRouteSerializer(many=True)  
 
 
 

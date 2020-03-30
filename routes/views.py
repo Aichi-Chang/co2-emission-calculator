@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from django.contrib.auth import get_user_model
 from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute, TravelBy
-from .serializers import TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer, TravelBySerializer, NestedTravelerSerializer, NestedTubeRouteSerializer
+from .serializers import TubeRouteSerializer, BusRouteSerializer, DriveRouteSerializer, CycleRouteSerializer, TravelBySerializer, NestedTravelerSerializer, NestedTubeRouteSerializer, NestedBusRouteSerializer
 
 User = get_user_model()
 
@@ -86,9 +86,50 @@ class TubeSingleView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-# class BusListView(APIView):
+class BusListView(APIView):
+
+    def get(self, _request, format=None):
+        busRoutes = BusRoute.objects.all()
+        serialized_with_user = NestedBusRouteSerializer(busRoutes, many=True)
+        return Response(serialized_with_user.data)
+
+    def post(self, request, format=None):
+        request.data['traveler'] = request.user.id
+        serializer = BusRouteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
+
+
+class BusSingleView(APIView):
     
-#     def get()
+    def get(self, _request, pk, format=None):
+        busRoute = BusRoute.objects.get(pk=pk)
+        serialized_with_user = NestedBusRouteSerializer(busRoute)
+        return Response(serialized_with_user.data)
+
+
+    def put(self, request, pk, format=None):
+        request.data['traveler'] = request.user.id
+        busRoute = self.get_object(pk)
+        if busRoute.owner.id != request.user.id:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        updated_serializer = BusRouteSerializer(busRoute)
+
+        if updated_serializer.is_valid():
+            updated_serializer.save()
+            return Response(updated_serializer.data, status=status.HTTP_200_OK)
+        return Response(updated_serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
+            
+
+    def delete(self, request, pk, format=None):
+        busRoute = self.get_object(pk)
+        if busRoute.owner.id != request.user.id:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        busRoute.delete()
+        return Response(status=status.HTTP_200_OK)
 
 
 
