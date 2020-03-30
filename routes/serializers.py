@@ -56,9 +56,19 @@ class NestedBusRouteSerializer(BusRouteSerializer):
     # traveler = TravelerSerializer()
 
 
+class NestedDriveRouteSerializer(DriveRouteSerializer):
+
+    travelBy = TravelBySerializer()
+
+
+class NestedCycleRouteSerializer(CycleRouteSerializer):
+
+    travelBy = TravelBySerializer()
+
+
 class NestedTravelerSerializer(TravelerSerializer):
 
-    # hooked with models related_name
+    # hooked with models' related_name= ''
     tubeRoutes = TubeRouteSerializer(many=True)
     busRoutes = BusRouteSerializer(many=True)  
 
