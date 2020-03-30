@@ -1,6 +1,8 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
+from routes import views
 from .views import TubeListView, TubeSingleView, BusListView, BusSingleView, DriveListView, DriveSingleView, CycleListView, CycleSingleView, TravelerSingleView
+
 
 urlpatterns = [
     path('tube/', TubeListView.as_view()),

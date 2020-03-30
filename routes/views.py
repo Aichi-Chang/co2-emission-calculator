@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from rest_framework import viewsets, filters, permissions, status
+from rest_framework import viewsets, filters, permissions, status, generics
 from rest_framework.views import APIView
 # from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
@@ -26,20 +26,20 @@ class TravelByView(APIView):
 
 # **************** Tube Route ****************
 
-class TubeListView(APIView):
+class TubeListView(generics.ListCreateAPIView):
 
-    def get(self, _request, format=None):
-        tubeRoutes = TubeRoute.objects.all()
-        serialized_with_user = NestedTubeRouteSerializer(tubeRoutes, many=True)
-        return Response(serialized_with_user.data)
+    # def get(self, _request, format=None):
+        queryset = TubeRoute.objects.all()
+        serializer_class = NestedTubeRouteSerializer
+        # return Response(serialized_with_user.data)
 
-    def post(self, request, format=None):
-        request.data['traveler'] = request.user.id
-        serializer = TubeRouteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
+        def post(self, request, format=None):
+            request.data['traveler'] = request.user.id
+            serializer = TubeRouteSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
 
 
 class TubeSingleView(APIView):
