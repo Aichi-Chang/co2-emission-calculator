@@ -46,15 +46,14 @@ class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
     # The Method not allowed error is because, it searches for a get() method inside your API class, 
     # and it couldn't find a one.
 
-    # def get_object(self, request, pk):
-    #     try:
-    #         tubeRoute = TubeRoute.objects.get(pk=pk)
-    #     except TubeRoute.DoesNotExist:
-    #         raise Http404
-
+    def get_object(self, pk):
+        try:
+            return TubeRoute.objects.get(pk=pk)
+        except TubeRoute.DoesNotExist:
+            raise Http404
 
     def get(self, _request, pk, format=None):
-        tubeRoute = TubeRoute.objects.get(pk=pk)
+        tubeRoute = self.get_object(pk)
         serialized_with_user = NestedTubeRouteSerializer(tubeRoute)
         return Response(serialized_with_user.data)
 
@@ -107,7 +106,7 @@ class BusSingleView(APIView):
 
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
-        busRoute = self.get_object(pk)
+        busRoute = BusRoute.objects.get(pk=pk)
         if busRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -120,7 +119,7 @@ class BusSingleView(APIView):
             
 
     def delete(self, request, pk, format=None):
-        busRoute = self.get_object(pk)
+        busRoute = BusRoute.objects.get(pk=pk)
         if busRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         busRoute.delete()
@@ -153,7 +152,7 @@ class DriveSingleView(APIView):
 
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
-        driveRoute = self.get_object(pk)
+        driveRoute = DriveRoute.objects.get(pk=pk)
         if driveRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -166,7 +165,7 @@ class DriveSingleView(APIView):
             
 
     def delete(self, request, pk, format=None):
-        driveRoute = self.get_object(pk)
+        driveRoute = DriveRoute.objects.get(pk=pk)
         if driveRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         driveRoute.delete()
@@ -199,7 +198,7 @@ class CycleSingleView(APIView):
 
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
-        cycleRoute = self.get_object(pk)
+        cycleRoute = CycleRoute.objects.get(pk=pk)
         if cycleRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -212,7 +211,7 @@ class CycleSingleView(APIView):
             
 
     def delete(self, request, pk, format=None):
-        cycleRoute = self.get_object(pk)
+        cycleRoute = CycleRoute.objects.get(pk=pk)
         if cycleRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         cycleRoute.delete()
