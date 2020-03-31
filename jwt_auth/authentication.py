@@ -10,7 +10,7 @@ User = get_user_model()
 class JWTAuthentication(BasicAuthentication):
     
     def authenticate(self, request):
-        header = request.headers.get('Authentication')
+        header = request.headers.get('Authorization')
 
         if not header:
             # the user continues as an unauthorised user,
@@ -20,7 +20,7 @@ class JWTAuthentication(BasicAuthentication):
         if not header.startswith('Bearer'):
             raise PermissionDenied({'message': 'Invalid Header Type'})
 
-        token = header.replace('Bear ', '')
+        token = header.replace('Bearer ', '')
 
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])

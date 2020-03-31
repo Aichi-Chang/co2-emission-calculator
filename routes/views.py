@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import Http404
 from rest_framework import viewsets, filters, permissions, status, generics
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 # from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
@@ -24,24 +25,30 @@ class TravelByView(generics.ListCreateAPIView):
 
 # **************** Tube Route ****************
 
-class TubeListView(generics.ListCreateAPIView):
+class TubeListView(APIView):
 
-    # def get(self, _request, format=None):
-        queryset = TubeRoute.objects.all()
-        serializer_class = NestedTubeRouteSerializer
-        # return Response(serialized_with_user.data)
+    # permission_classes = (IsAuthenticatedOrReadOnly, )
 
-        def post(self, request, *args, **kwargs):
-            request.data['traveler'] = request.user.id
-            # return super().post(self, request, *args, **kwargs)
-            serializer = TubeRouteSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return TubeRoute.objects.filter(traveler=user.id)
+
+    def get(self, request):
+        tubeRoute = TubeRoute.objects.filter(traveler=request.user)
+        serialized_tube = NestedTubeRouteSerializer(tubeRoute, many=True)
+        return Response(serialized_tube.data)
+
+    def post(self, request):
+        request.data['traveler'] = request.user.id
+        # return super().post(self, request, *args, **kwargs)
+        tube = TubeRouteSerializer(data=request.data)
+        if tube.is_valid():
+            tube.save()
+            return Response(tube.data, status=HTTP_201_CREATED)
+        return Response(tube.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
 
 
-class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
+class TubeSingleView(APIView):
     
     # The Method not allowed error is because, it searches for a get() method inside your API class, 
     # and it couldn't find a one.
@@ -54,7 +61,7 @@ class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
 
     def get(self, _request, pk, format=None):
         tubeRoute = self.get_object(pk)
-        serialized_with_user = NestedTubeRouteSerializer(tubeRoute)
+        serialized_with_user = NestedTubeRouteSerializer(tubeRoute, many=True)
         return Response(serialized_with_user.data)
 
 

@@ -23,7 +23,7 @@ class TravelerSerializer(serializers.ModelSerializer):
 class TubeRouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = TubeRoute
-        fields = '__all__'
+        fields = ('id', 'depart', 'arrive', 'departTime', 'arriveTime', 'duation', 'direction', 'departLon', 'departLat', 'arrivalLon', 'arrivalLat', 'carbonPrint', 'traveler', 'travelBy')
 
 
 class BusRouteSerializer(serializers.ModelSerializer):
@@ -46,24 +46,23 @@ class CycleRouteSerializer(serializers.ModelSerializer):
 
 class NestedTubeRouteSerializer(TubeRouteSerializer):
 
-    travelBy = TravelBySerializer()
-    # traveler = TravelerSerializer()
+    traveler = TravelerSerializer()
 
 
 class NestedBusRouteSerializer(BusRouteSerializer):
 
-    travelBy = TravelBySerializer()
-    # traveler = TravelerSerializer()
+    traveler = TravelerSerializer()
 
 
 class NestedDriveRouteSerializer(DriveRouteSerializer):
 
-    travelBy = TravelBySerializer()
+    traveler = TravelerSerializer()
 
 
 class NestedCycleRouteSerializer(CycleRouteSerializer):
 
-    travelBy = TravelBySerializer()
+    # travelBy = TravelBySerializer()
+    traveler = TravelerSerializer()
 
 
 class NestedTravelerSerializer(TravelerSerializer):
