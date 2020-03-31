@@ -16,12 +16,10 @@ User = get_user_model()
 
 # **************** Travel Type ****************
 
-class TravelByView(APIView):
+class TravelByView(generics.ListCreateAPIView):
 
-    def get(self, _request):
-        travelBy = TravelBy.objects.all()
-        serialized_with_travelBy = TravelBySerializer(travelBy, many=True)
-        return Response(serialized_with_travelBy.data)
+    queryset = TravelBy.objects.all()
+    serializer_class = TravelBySerializer
 
 
 # **************** Tube Route ****************
@@ -85,12 +83,10 @@ class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
 
 # **************** Bus Route ****************
 
-class BusListView(APIView):
+class BusListView(generics.ListCreateAPIView):
 
-    def get(self, _request, format=None):
-        busRoutes = BusRoute.objects.all()
-        serialized_with_user = NestedBusRouteSerializer(busRoutes, many=True)
-        return Response(serialized_with_user.data)
+    queryset = BusRoute.objects.all()
+    serializer_class = NestedBusRouteSerializer
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
@@ -133,12 +129,10 @@ class BusSingleView(APIView):
 
 # **************** Drive Route ****************
 
-class DriveListView(APIView):
+class DriveListView(generics.ListCreateAPIView):
 
-    def get(self, _request, format=None):
-        driveRoutes = DriveRoute.objects.all()
-        serialized_with_user = NestedBusRouteSerializer(driveRoutes, many=True)
-        return Response(serialized_with_user.data)
+    queryset = DriveRoute.objects.all()
+    serializer_class = NestedDriveRouteSerializer
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
@@ -181,12 +175,10 @@ class DriveSingleView(APIView):
 
 # **************** Cycle Route ****************
 
-class CycleListView(APIView):
+class CycleListView(generics.ListCreateAPIView):
 
-    def get(self, _request, format=None):
-        cycleRoutes = CycleRoute.objects.all()
-        serialized_with_user = NestedCycleRouteSerializer(cycleRoutes, many=True)
-        return Response(serialized_with_user.data)
+    queryset = CycleRoute.objects.all()
+    serializer_class = NestedCycleRouteSerializer
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
