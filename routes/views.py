@@ -33,8 +33,9 @@ class TubeListView(generics.ListCreateAPIView):
         serializer_class = NestedTubeRouteSerializer
         # return Response(serialized_with_user.data)
 
-        def post(self, request, format=None):
+        def post(self, request, *args, **kwargs):
             request.data['traveler'] = request.user.id
+            # return super().post(self, request, *args, **kwargs)
             serializer = TubeRouteSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -42,7 +43,7 @@ class TubeListView(generics.ListCreateAPIView):
             return Response(serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
 
 
-class TubeSingleView(APIView):
+class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
     
     # The Method not allowed error is because, it searches for a get() method inside your API class, 
     # and it couldn't find a one.
