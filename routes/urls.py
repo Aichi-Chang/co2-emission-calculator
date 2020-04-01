@@ -17,7 +17,7 @@ urlpatterns = [
     path('cycle/', CycleListView.as_view()),
     path('cycle/<int:pk>/', CycleSingleView.as_view()),
 
-    path('traveler/<int:pk>/', TravelerSingleView.as_view())
+    path('traveler/', TravelerSingleView.as_view())
 ]
 
 # Using format suffixes gives us URLs that explicitly refer to a given format, 

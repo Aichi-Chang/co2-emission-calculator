@@ -25,18 +25,19 @@ class TravelByView(generics.ListCreateAPIView):
 
 # **************** Tube Route ****************
 
-class TubeListView(APIView):
+class TubeListView(generics.ListCreateAPIView):
 
-    # permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    queryset = TubeRoute.objects.all()
+    serializer_class = NestedTubeRouteSerializer
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return TubeRoute.objects.filter(traveler=user.id)
+    def get_queryset(self):
+        return TubeRoute.objects.filter(traveler=self.request.user)
 
-    def get(self, request):
-        tubeRoute = TubeRoute.objects.filter(traveler=request.user)
-        serialized_tube = NestedTubeRouteSerializer(tubeRoute, many=True)
-        return Response(serialized_tube.data)
+    # def get(self, request):
+    #     tubeRoute = TubeRoute.objects.filter(traveler=request.user)
+    #     serialized_tube = NestedTubeRouteSerializer(tubeRoute, many=True)
+    #     return Response(serialized_tube.data)
 
     def post(self, request):
         request.data['traveler'] = request.user.id
@@ -48,10 +49,10 @@ class TubeListView(APIView):
         return Response(tube.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
 
 
-class TubeSingleView(APIView):
+class TubeSingleView(generics.RetrieveUpdateDestroyAPIView):
+
+    permission_classes = (IsAuthenticated, )
     
-    # The Method not allowed error is because, it searches for a get() method inside your API class, 
-    # and it couldn't find a one.
 
     def get_object(self, pk):
         try:
@@ -90,9 +91,13 @@ class TubeSingleView(APIView):
 # **************** Bus Route ****************
 
 class BusListView(generics.ListCreateAPIView):
-
+    
+    permission_classes = (IsAuthenticated, )
     queryset = BusRoute.objects.all()
     serializer_class = NestedBusRouteSerializer
+
+    def get_queryset(self):
+        return BusRoute.objects.filter(traveler=self.request.user)
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
@@ -104,6 +109,8 @@ class BusListView(generics.ListCreateAPIView):
 
 
 class BusSingleView(APIView):
+
+    permission_classes = (IsAuthenticated, )
     
     def get(self, _request, pk, format=None):
         busRoute = BusRoute.objects.get(pk=pk)
@@ -137,8 +144,17 @@ class BusSingleView(APIView):
 
 class DriveListView(generics.ListCreateAPIView):
 
+    permission_classes = (IsAuthenticated, )
     queryset = DriveRoute.objects.all()
     serializer_class = NestedDriveRouteSerializer
+
+    def get_queryset(self):
+        return DriveRoute.objects.filter(traveler=self.request.user)
+
+    # def get(self, request):
+    #     driveRoute = DriveRoute.objects.filter(traveler=request.user)
+    #     serialized_drive = NestedDriveRouteSerializer(driveRoute, many=True)
+    #     return Response(serialized_drive.data)
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
@@ -150,6 +166,8 @@ class DriveListView(generics.ListCreateAPIView):
 
 
 class DriveSingleView(APIView):
+
+    permission_classes = (IsAuthenticated, )
     
     def get(self, _request, pk, format=None):
         driveRoute = DriveRoute.objects.get(pk=pk)
@@ -183,8 +201,12 @@ class DriveSingleView(APIView):
 
 class CycleListView(generics.ListCreateAPIView):
 
+    permission_classes = (IsAuthenticated, )
     queryset = CycleRoute.objects.all()
     serializer_class = NestedCycleRouteSerializer
+
+    def get_queryset(self):
+        return CycleRoute.objects.filter(traveler=self.request.user)
 
     def post(self, request, format=None):
         request.data['traveler'] = request.user.id
@@ -196,6 +218,8 @@ class CycleListView(generics.ListCreateAPIView):
 
 
 class CycleSingleView(APIView):
+
+    permission_classes = (IsAuthenticated, )
     
     def get(self, _request, pk, format=None):
         cycleRoute = CycleRoute.objects.get(pk=pk)
@@ -209,7 +233,7 @@ class CycleSingleView(APIView):
         if cycleRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        updated_serializer = BusRouteSerializer(cycleRoute)
+        updated_serializer = CycleRouteSerializer(cycleRoute)
 
         if updated_serializer.is_valid():
             updated_serializer.save()
@@ -230,8 +254,10 @@ class CycleSingleView(APIView):
 
 class TravelerSingleView(APIView):
 
-    def get(self, _request, pk):
-        traveler = User.objects.filter(id=pk)
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        traveler = User.objects.filter(id=request.user.id)
         serialized_with_all_routes = NestedTravelerSerializer(traveler, many=True)
 
         return Response(serialized_with_all_routes.data)
