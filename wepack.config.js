@@ -25,12 +25,12 @@ module.exports = {
     contentBase: 'src',
     hot: true,
     open: true,
-    port: 8000,
+    port: 3000,
     watchContentBase: true,
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:8000',
         secure: false,
         changeOrigin: true
       }
