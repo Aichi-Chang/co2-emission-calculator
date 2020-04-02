@@ -15,5 +15,27 @@
   "bugs": {
     "url": "https://github.com/Aichi-Chang/calculator2/issues"
   },
-  "homepage": "https://github.com/Aichi-Chang/calculator2#readme"
+  "homepage": "https://github.com/Aichi-Chang/calculator2#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "html-webpack-plugin": "^4.0.4",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-calendar": "^3.0.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "recharts": "^1.8.5",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "tachyons": "^4.11.1",
+    "url-loader": "^4.0.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
 }

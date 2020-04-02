@@ -30,5 +30,6 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r'admin/', admin.site.urls),
     path(r'api/routes/', include('routes.urls')),
-    path(r'api/users/', include('jwt_auth.urls'))
+    path(r'api/users/', include('jwt_auth.urls')),
+    path('', include('frontend.urls'))
 ]
