@@ -7,6 +7,7 @@ import 'tachyons'
 
 
 import Register from './components/Register'
+import Homepage from './components/Homepage'
 
 
 
@@ -17,7 +18,7 @@ const App = () => {
     <HashRouter>
 
       <Switch>
-        <Route exact path = '/' component={Register} />
+        <Route exact path = '/' component={Homepage} />
       </Switch>
     </HashRouter>
 
