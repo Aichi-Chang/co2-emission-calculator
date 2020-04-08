@@ -7,7 +7,8 @@ import 'tachyons'
 
 
 import Register from './components/Register'
-import Homepage from './components/Homepage'
+import TFLresult from './components/TFLresult'
+import Postcodes from './components/Postcodes'
 
 
 
@@ -18,7 +19,9 @@ const App = () => {
     <HashRouter>
 
       <Switch>
-        <Route exact path = '/' component={Homepage} />
+        <Route exact path = '/enter' component={Postcodes} />
+        <Route exact path = '/result' component={TFLresult} />
+        
       </Switch>
     </HashRouter>
 

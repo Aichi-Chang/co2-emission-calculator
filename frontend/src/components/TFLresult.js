@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import Postcodes from './Postcodes'
 
 
-export default function Homepage() {
+
+export default function TFLresult(props, latLng) {
 
   const [route, setRoute] = useState()
-
+  const [result, setResult] = useState({})
 
   useEffect(() => {
     axios.get('https://api.tfl.gov.uk/journey/journeyresults/51.496518,-0.146452/to/51.489864,-0.040245?nationalsearch=false&date=20200408&time=1530&timeis=departing&useMultiModalCall=true')
@@ -47,30 +49,31 @@ export default function Homepage() {
   })
 
 
-  console.log(route.journeys)
-  console.log(modeObjZero.map(id => {
-    return id.id
-  }))
-  console.log(modeObjOne.map(id => {
-    return id.id
-  }))
-  console.log(modeObjTwo.map(id => {
-    return id.id
-  }))
-  console.log(modeObjThree.map(id => {
-    return id.id
-  }))
-  console.log(modeObjFour.map(id => {
-    return id.id
-  }))
-  console.log(modeObjFive.map(id => {
-    return id.id
-  }))
+  console.log(latLng)
+  // console.log(route.journeys)
+  // console.log(modeObjZero.map(id => {
+  //   return id.id
+  // }))
+  // console.log(modeObjOne.map(id => {
+  //   return id.id
+  // }))
+  // console.log(modeObjTwo.map(id => {
+  //   return id.id
+  // }))
+  // console.log(modeObjThree.map(id => {
+  //   return id.id
+  // }))
+  // console.log(modeObjFour.map(id => {
+  //   return id.id
+  // }))
+  // console.log(modeObjFive.map(id => {
+  //   return id.id
+  // }))
   
 
   return (
     <div>
-      <h1>heyyy</h1>
+      <h1>hey</h1>
     </div>
   )
 }
