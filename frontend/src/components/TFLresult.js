@@ -21,7 +21,7 @@ export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, lon
     
   }, [latLng])
 
-  if (result) {
+  if (result) { 
     console.log(result.result)
   }
 
