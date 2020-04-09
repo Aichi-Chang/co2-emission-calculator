@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-export default function Postcodes(props) {
+import TFLresult from './TFLresult'
+
+
+
+export default function Postcodes() {
 
   const [postcodes, setPostcodes] = useState({
     postcodeFrom: '',
     postcodeTo: ''
   })
-  const [latLng, setLatLng] = useState(null)
+  const [latLng, setLatLng] = useState()
   
   const [errors, setErrors] = useState({
     errors: ''
@@ -27,20 +31,22 @@ export default function Postcodes(props) {
     axios.post('https://api.postcodes.io/postcodes', data)
       .then(res => {
         setLatLng(res.data)
-        props.history.push('/result')
+        
+        // props.history.push('/result')
       })
       .catch(err => setErrors(err.response.data))
   }
  
 
-  console.log(latLng)
+  // console.log(latLng)
   
 
 
 
   return (
     <div>
-      <h1>Please enter the postcode:</h1>
+
+      <h3>Please enter the postcode:</h3>
       <form 
         onSubmit={(e) => handleSubmit(e)}
       >
@@ -61,12 +67,18 @@ export default function Postcodes(props) {
         </button>
       </form>
 
+      <TFLresult 
+        postcodes={postcodes}
+        latLng={latLng}
+        latitudeFrom={latLng ? latLng.result[0].result.latitude : null}
+        longitudeFrom={latLng ? latLng.result[0].result.longitude : null}
+        latitudeTo={latLng ? latLng.result[1].result.latitude : null}
+        longitudeTo={latLng ? latLng.result[1].result.longitude : null}
+        // url={`https://api.tfl.gov.uk/journey/journeyresults/${latLng.result[0].result.latitude},-0.146452/to/51.489864,-0.040245?nationalsearch=false&date=20200408&time=1530&timeis=departing&useMultiModalCall=true`}
+      />
+
       {/* <div>
-        {latLng ?
-          latLng.result.map(lat => {
-            return lat.result.latitude
-          })
-          : null}
+        {latLng ? latLng.result[0].result.latitude : null}
       </div> */}
 
     </div>

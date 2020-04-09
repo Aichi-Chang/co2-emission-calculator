@@ -1,56 +1,72 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import Postcodes from './Postcodes'
 
 
 
-export default function TFLresult(props, latLng) {
+
+export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, latLng }) {
 
   const [route, setRoute] = useState()
-  const [result, setResult] = useState({})
+  const [result, setResult] = useState(null)
+
 
   useEffect(() => {
-    axios.get('https://api.tfl.gov.uk/journey/journeyresults/51.496518,-0.146452/to/51.489864,-0.040245?nationalsearch=false&date=20200408&time=1530&timeis=departing&useMultiModalCall=true')
-      .then(res => setRoute(res.data))
-  }, [])
+    setResult(latLng)
+    
+    if (result !== null) {
+      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${latitudeFrom},${longitudeFrom}/to/${latitudeTo},${longitudeTo}?nationalsearch=false&date=20200408&time=1530&timeis=departing&useMultiModalCall=true`) 
+        .then(res => setRoute(res.data))
+    }
+    
+  }, [latLng])
 
-
-  if (!route) {
-    return null
+  if (result) {
+    console.log(result.result)
   }
 
-  const legs = route.journeys.map(summary =>{
-    return summary.legs
-  })
-  // tube
-  const modeObjZero = legs[0].map(mode => {
-    return mode.mode
-  })
-  // tube
-  const modeObjOne = legs[1].map(mode => {
-    return mode.mode
-  })
-  // tube
-  const modeObjTwo = legs[2].map(mode => {
-    return mode.mode
-  })
-  // bus
-  const modeObjThree = legs[3].map(mode => {
-    return mode.mode
-  })
-  // cycle
-  const modeObjFour = legs[4].map(mode => {
-    return mode.mode
-  })
-  // cycle hire
-  const modeObjFive = legs[5].map(mode => {
-    return mode.mode
-  })
+  
+  
+  if (route) {
+    console.log(route.journeys)
+  }
 
 
-  console.log(latLng)
-  // console.log(route.journeys)
+
+  // const legs = route.journeys.map(summary =>{
+  //   return summary.legs
+  // })
+  // // tube
+  // const modeObjZero = legs[0].map(mode => {
+  //   return mode.mode
+  // })
+  // // tube
+  // const modeObjOne = legs[1].map(mode => {
+  //   return mode.mode
+  // })
+  // // tube
+  // const modeObjTwo = legs[2].map(mode => {
+  //   return mode.mode
+  // })
+  // // bus
+  // const modeObjThree = legs[3].map(mode => {
+  //   return mode.mode
+  // })
+  // // cycle
+  // const modeObjFour = legs[4].map(mode => {
+  //   return mode.mode
+  // })
+  // // cycle hire
+  // const modeObjFive = legs[5].map(mode => {
+  //   return mode.mode
+  // })
+
+
+
+  // console.log(latLng)
+  // console.log(latitudeFrom)
+
+  
   // console.log(modeObjZero.map(id => {
   //   return id.id
   // }))
@@ -73,7 +89,7 @@ export default function TFLresult(props, latLng) {
 
   return (
     <div>
-      <h1>hey</h1>
+      <h1>-- Carbon Print Calculator --</h1>
     </div>
   )
 }

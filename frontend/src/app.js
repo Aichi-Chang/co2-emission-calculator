@@ -19,8 +19,8 @@ const App = () => {
     <HashRouter>
 
       <Switch>
-        <Route exact path = '/enter' component={Postcodes} />
-        <Route exact path = '/result' component={TFLresult} />
+        <Route exact path = '/' component={Postcodes} />
+        {/* <Route exact path = '/' component={TFLresult} /> */}
         
       </Switch>
     </HashRouter>
