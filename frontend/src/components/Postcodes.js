@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Calendar from 'react-calendar'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import MomentUtils from '@date-io/moment'
+import DateFnsUtils from '@date-io/date-fns'
+
+import 'react-calendar/dist/Calendar.css'
 
 import TFLresult from './TFLresult'
+import Picker from './Picker'
 
 
 
-export default function Postcodes() {
+export default function Postcodes(props) {
 
   const [postcodes, setPostcodes] = useState({
     postcodeFrom: '',
     postcodeTo: ''
   })
   const [latLng, setLatLng] = useState()
+
+  const [date, setDate] = useState(null)
+
+  const [month, setMonth] = useState(null)
+  const [year, setYear] = useState(null)
+  const [day, setDay] = useState(null)
+  const [hour, setHour] = useState(null)
+  const [minute, setMinute] = useState(null)
+
   
   const [errors, setErrors] = useState({
     errors: ''
@@ -31,15 +47,15 @@ export default function Postcodes() {
     axios.post('https://api.postcodes.io/postcodes', data)
       .then(res => {
         setLatLng(res.data)
-        
-        // props.history.push('/result')
+        setMonth(date.getMonth() + 1)
+        setDay(date.getDate())
+        setYear(date.getFullYear())
+        setHour(date.getUTCHours() + 1)
+        setMinute(date.getUTCMinutes())
       })
       .catch(err => setErrors(err.response.data))
   }
- 
 
-  // console.log(latLng)
-  
 
 
 
@@ -62,24 +78,33 @@ export default function Postcodes() {
           name= 'postcodeTo'
           onChange={(elem) => handleChang(elem)}
         />
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Picker 
+            updateDate={setDate}
+          />
+        </MuiPickersUtilsProvider>
+
         <button>
           Get the info
         </button>
       </form>
 
+      
+
       <TFLresult 
+        hour={hour}
+        minute={minute}
+        day={day}
+        month={month}
+        year={year}
         postcodes={postcodes}
         latLng={latLng}
         latitudeFrom={latLng ? latLng.result[0].result.latitude : null}
         longitudeFrom={latLng ? latLng.result[0].result.longitude : null}
         latitudeTo={latLng ? latLng.result[1].result.latitude : null}
         longitudeTo={latLng ? latLng.result[1].result.longitude : null}
-        // url={`https://api.tfl.gov.uk/journey/journeyresults/${latLng.result[0].result.latitude},-0.146452/to/51.489864,-0.040245?nationalsearch=false&date=20200408&time=1530&timeis=departing&useMultiModalCall=true`}
       />
-
-      {/* <div>
-        {latLng ? latLng.result[0].result.latitude : null}
-      </div> */}
 
     </div>
   )
