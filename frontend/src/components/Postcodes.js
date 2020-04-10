@@ -22,12 +22,6 @@ export default function Postcodes(props) {
 
   const [date, setDate] = useState(null)
 
-  const [month, setMonth] = useState(null)
-  const [year, setYear] = useState(null)
-  const [day, setDay] = useState(null)
-  const [hour, setHour] = useState(null)
-  const [minute, setMinute] = useState(null)
-
   
   const [errors, setErrors] = useState({
     errors: ''
@@ -47,16 +41,12 @@ export default function Postcodes(props) {
     axios.post('https://api.postcodes.io/postcodes', data)
       .then(res => {
         setLatLng(res.data)
-        setMonth(date.getMonth() + 1)
-        setDay(date.getDate())
-        setYear(date.getFullYear())
-        setHour(date.getUTCHours() + 1)
-        setMinute(date.getUTCMinutes())
       })
       .catch(err => setErrors(err.response.data))
   }
 
 
+  // console.log(date)
 
 
   return (
@@ -93,11 +83,7 @@ export default function Postcodes(props) {
       
 
       <TFLresult 
-        hour={hour}
-        minute={minute}
-        day={day}
-        month={month}
-        year={year}
+        date={date}
         postcodes={postcodes}
         latLng={latLng}
         latitudeFrom={latLng ? latLng.result[0].result.latitude : null}

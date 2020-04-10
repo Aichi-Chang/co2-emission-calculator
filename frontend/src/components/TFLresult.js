@@ -1,43 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 
 
 
-export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, latLng, day, month, year, hour, minute }) {
+export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, latLng, date }) {
 
   const [route, setRoute] = useState()
   const [result, setResult] = useState(null)
-  const [selecDay, setSelecDay] = useState(null)
-  const [selecMonth, setSelecMonth] = useState(null)
-  const [selecYear, setSelecYear] = useState(null)
-  const [selecHour, setSelecHour] = useState(null)
-  const [selecMinute, setSelecMinute] = useState(null)
+  const [depart, setDepart] = useState(null)
 
+    
+  
 
   useEffect(() => {
-    setResult(latLng)
-    setSelecDay(day < 10 ? '0' + day : day)
-    setSelecMonth(month < 10 ? '0' + month : month)
-    setSelecYear(year)
-    setSelecHour(hour < 10 ? '0' + hour : hour)
-    setSelecMinute(minute)
-    
-    if (result !== null) {
-      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${latitudeFrom},${longitudeFrom}/to/${latitudeTo},${longitudeTo}?nationalsearch=false&date=${selecYear}${selecMonth}${selecDay}&time=${selecHour}${selecMinute}&timeis=departing&useMultiModalCall=true`) 
-        .then(res => setRoute(res.data))
+
+    async function fetchTFL() {
+      try {
+        const response = await axios.get(
+          `https://api.tfl.gov.uk/journey/journeyresults/${latitudeFrom},${longitudeFrom}/to/${latitudeTo},${longitudeTo}?nationalsearch=false&date=${depart.getFullYear()}${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}${date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()}&time=${date.getUTCHours() + 1 < 10 ? '0' + (date.getUTCHours() + 1) : date.getUTCHours() + 1}${date.getUTCMinutes() < 10 ? '0' + (date.getUTCMinutes()) : date.getUTCMinutes()}&timeis=departing&useMultiModalCall=true`)
+        const res = await response.data
+        setRoute(res)
+      } catch (e) {
+        console.log(e)
+      }
     }
-    
+  
+    setResult(latLng)
+    setDepart(date)
+
+    fetchTFL()
   }, [latLng])
+  
+  
+    
+  console.log(date)
+  console.log(depart)
+
 
 
   
-  if (selecDay !== null) {
-    console.log(selecMonth)
-    console.log(selecDay)
-    console.log(selecYear)
-  }
+  // if (selecDay !== null) {
+  //   console.log(selecMonth)
+
+  // }
   
 
   
