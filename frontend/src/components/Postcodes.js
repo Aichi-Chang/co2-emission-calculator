@@ -45,9 +45,7 @@ export default function Postcodes(props) {
       .catch(err => setErrors(err.response.data))
   }
 
-
-  // console.log(date)
-
+  // console.log(latLng)
 
   return (
     <div>
@@ -69,27 +67,26 @@ export default function Postcodes(props) {
           onChange={(elem) => handleChang(elem)}
         />
 
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Picker 
             updateDate={setDate}
           />
-        </MuiPickersUtilsProvider>
-
+        </MuiPickersUtilsProvider> */}
         <button>
           Get the info
         </button>
       </form>
 
       
-
+      
       <TFLresult 
-        date={date}
+        // date={date}
         postcodes={postcodes}
         latLng={latLng}
-        latitudeFrom={latLng ? latLng.result[0].result.latitude : null}
-        longitudeFrom={latLng ? latLng.result[0].result.longitude : null}
-        latitudeTo={latLng ? latLng.result[1].result.latitude : null}
-        longitudeTo={latLng ? latLng.result[1].result.longitude : null}
+        // latitudeFrom={latLng ? latLng.result[0].result.latitude : null}
+        // longitudeFrom={latLng ? latLng.result[0].result.longitude : null}
+        // latitudeTo={latLng ? latLng.result[1].result.latitude : null}
+        // longitudeTo={latLng ? latLng.result[1].result.longitude : null}
       />
 
     </div>

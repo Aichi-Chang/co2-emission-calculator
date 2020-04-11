@@ -7,79 +7,61 @@ import 'regenerator-runtime/runtime'
 
 
 
-export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, latLng, date }) {
+export default function TFLresult(props) {
 
   const [route, setRoute] = useState()
   const [result, setResult] = useState(null)
-  const [depart, setDepart] = useState(null)
-
+  // const [depart, setDepart] = useState(null)
+  const [time, setTime] = useState(new Date())
     
-  
-
-  useEffect(() => {
-
-    async function fetchTFL() {
-      try {
-        const response = await axios.get(
-          `https://api.tfl.gov.uk/journey/journeyresults/${latitudeFrom},${longitudeFrom}/to/${latitudeTo},${longitudeTo}?nationalsearch=false&date=${depart.getFullYear()}${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}${date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()}&time=${date.getUTCHours() + 1 < 10 ? '0' + (date.getUTCHours() + 1) : date.getUTCHours() + 1}${date.getUTCMinutes() < 10 ? '0' + (date.getUTCMinutes()) : date.getUTCMinutes()}&timeis=departing&useMultiModalCall=true`)
-        const res = await response.data
-        setRoute(res)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  
-    setResult(latLng)
-    setDepart(date)
-
-    fetchTFL()
-  }, [latLng])
-  
-  
-    
-  console.log(date)
-  console.log(depart)
-
-
 
   
-  // if (selecDay !== null) {
-  //   console.log(selecMonth)
+  // The argument passed to useState is the initial state much like setting state in constructor for a class component 
+  // and isn't used to update the state on re-render
+  // https://stackoverflow.com/questions/54865764/react-usestate-does-not-reload-state-from-props
+  useEffect(() => { 
 
-  // }
+    console.log(props.latLng ? props.latLng.result[0].result.latitude : 'waiting...')
+    if (props.latLng) {
+      console.log('route set')
+      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&useMultiModalCall=true`)
+        .then(res => setRoute(res.data))
+    }  
+
+  }, [props])
   
 
   
   if (route) {
     console.log(route.journeys)
     
-    // const legs = route.journeys.map(summary =>{
-    //   return summary.legs
-    // })
-    // // tube
-    // const modeObjZero = legs[0].map(mode => {
-    //   return mode.mode
-    // })
-    // // tube
-    // const modeObjOne = legs[1].map(mode => {
-    //   return mode.mode
-    // })
-    // // tube
-    // const modeObjTwo = legs[2].map(mode => {
-    //   return mode.mode
-    // })
-    // // bus
-    // const modeObjThree = legs[3].map(mode => {
-    //   return mode.mode
-    // })
-    // // cycle
-    // const modeObjFour = legs[4].map(mode => {
-    //   return mode.mode
-    // })
-    // // cycle hire
-    // const modeObjFive = legs[5].map(mode => {
-    //   return mode.mode
-    // })
+    const legs = route.journeys.map(summary =>{
+      return summary.legs
+    })
+    // tube
+    const modeObjZero = legs[0].map(mode => {
+      return mode.mode
+    })
+    // tube
+    const modeObjOne = legs[1].map(mode => {
+      return mode.mode
+    })
+    // tube
+    const modeObjTwo = legs[2].map(mode => {
+      return mode.mode
+    })
+    // bus
+    const modeObjThree = legs[3].map(mode => {
+      return mode.mode
+    })
+    // cycle
+    const modeObjFour = legs[4].map(mode => {
+      return mode.mode
+    })
+    // cycle hire
+    const modeObjFive = legs[5].map(mode => {
+      return mode.mode
+    })
 
     // console.log(modeObjZero.map(id => {
     //   return id.id
@@ -105,11 +87,6 @@ export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, lon
 
  
 
-
-
-  // console.log(latLng)
-  // console.log(latitudeFrom)
-
   
   // console.log(modeObjZero.map(id => {
   //   return id.id
@@ -133,7 +110,7 @@ export default function TFLresult({ latitudeFrom, longitudeFrom, latitudeTo, lon
 
   return (
     <div>
-      <h1>-- Carbon Print Calculator --</h1>
+      <div></div>
     </div>
   )
 }
