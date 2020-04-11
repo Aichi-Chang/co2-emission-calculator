@@ -13,6 +13,7 @@ export default function TFLresult(props) {
   const [result, setResult] = useState(null)
   // const [depart, setDepart] = useState(null)
   const [time, setTime] = useState(new Date())
+  const [mode, setMode] = useState('')
     
 
   
@@ -22,9 +23,11 @@ export default function TFLresult(props) {
   useEffect(() => { 
 
     console.log(props.latLng ? props.latLng.result[0].result.latitude : 'waiting...')
+    // Setting initial state based on prop when using useState Hook
+    // https://stackoverflow.com/questions/56574442/setting-initial-state-based-on-prop-when-using-usestate-hook
     if (props.latLng) {
       console.log('route set')
-      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&useMultiModalCall=true`)
+      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&journeyPreference=LeastInterchange&mode=${mode}`)
         .then(res => setRoute(res.data))
     }  
 
@@ -33,35 +36,36 @@ export default function TFLresult(props) {
 
   
   if (route) {
-    console.log(route.journeys)
-    
-    const legs = route.journeys.map(summary =>{
-      return summary.legs
-    })
-    // tube
-    const modeObjZero = legs[0].map(mode => {
-      return mode.mode
-    })
-    // tube
-    const modeObjOne = legs[1].map(mode => {
-      return mode.mode
-    })
-    // tube
-    const modeObjTwo = legs[2].map(mode => {
-      return mode.mode
-    })
-    // bus
-    const modeObjThree = legs[3].map(mode => {
-      return mode.mode
-    })
-    // cycle
-    const modeObjFour = legs[4].map(mode => {
-      return mode.mode
-    })
-    // cycle hire
-    const modeObjFive = legs[5].map(mode => {
-      return mode.mode
-    })
+    // console.log(route.lines[0].modeName)
+    console.log(route)    
+    // const legs = route.journeys.map(summary =>{
+    //   return summary.legs
+    // })
+
+    // // // tube
+    // const modeObjZero = legs[0].map(mode => {
+    //   return mode.mode
+    // })
+    // // // tube
+    // const modeObjOne = legs[1].map(mode => {
+    //   return mode.mode
+    // })
+    // // // tube
+    // const modeObjTwo = legs[2].map(mode => {
+    //   return mode.mode
+    // })
+    // // bus
+    // const modeObjThree = legs[3].map(mode => {
+    //   return mode.mode
+    // })
+    // // cycle
+    // const modeObjFour = legs[4].map(mode => {
+    //   return mode.mode
+    // })
+    // // cycle hire
+    // const modeObjFive = legs[5].map(mode => {
+    //   return mode.mode
+    // })
 
     // console.log(modeObjZero.map(id => {
     //   return id.id
@@ -83,34 +87,21 @@ export default function TFLresult(props) {
     // }))
   }
 
+  function handleChange(e) {
+    setMode(e.target.value)
+  }
 
-
+console.log(mode)
  
-
-  
-  // console.log(modeObjZero.map(id => {
-  //   return id.id
-  // }))
-  // console.log(modeObjOne.map(id => {
-  //   return id.id
-  // }))
-  // console.log(modeObjTwo.map(id => {
-  //   return id.id
-  // }))
-  // console.log(modeObjThree.map(id => {
-  //   return id.id
-  // }))
-  // console.log(modeObjFour.map(id => {
-  //   return id.id
-  // }))
-  // console.log(modeObjFive.map(id => {
-  //   return id.id
-  // }))
-  
 
   return (
     <div>
-      <div></div>
+      <select onChange={(e) => handleChange(e)}>
+        <option name='tube'>tube</option>
+        <option name='bus'>bus</option>
+        <option name='cycle'>cycle</option>
+        <option name='drive'>drive</option>
+      </select>
     </div>
   )
 }

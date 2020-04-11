@@ -66,6 +66,12 @@ export default function Postcodes(props) {
           name= 'postcodeTo'
           onChange={(elem) => handleChang(elem)}
         />
+        {/* <select>
+          <option name='tube'>Tube</option>
+          <option name='bus'>Bus</option>
+          <option name='cycle'>Cycle</option>
+          <option name='drive'>Drive</option>
+        </select> */}
 
         {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Picker 
