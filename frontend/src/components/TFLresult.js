@@ -10,11 +10,11 @@ import 'regenerator-runtime/runtime'
 export default function TFLresult(props) {
 
   const [route, setRoute] = useState()
-  const [result, setResult] = useState(null)
+  // const [result, setResult] = useState(null)
   // const [depart, setDepart] = useState(null)
   const [time, setTime] = useState(new Date())
-  const [mode, setMode] = useState('')
-    
+  const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
+  const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
 
   
   // The argument passed to useState is the initial state much like setting state in constructor for a class component 
@@ -22,86 +22,71 @@ export default function TFLresult(props) {
   // https://stackoverflow.com/questions/54865764/react-usestate-does-not-reload-state-from-props
   useEffect(() => { 
 
-    console.log(props.latLng ? props.latLng.result[0].result.latitude : 'waiting...')
+    // console.log(props.latLng ? props.latLng.result[0].result.latitude : 'waiting...')
     // Setting initial state based on prop when using useState Hook
     // https://stackoverflow.com/questions/56574442/setting-initial-state-based-on-prop-when-using-usestate-hook
+
+    // TFL URL
+    // `https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&journeyPreference=LeastInterchange&mode=${mode.value}`)
+    
     if (props.latLng) {
-      console.log('route set')
-      axios.get(`https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&journeyPreference=LeastInterchange&mode=${mode}`)
+      console.log('route set2')
+      axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?waypoint0=${props.latLng.result[0].result.latitude}%2C${props.latLng.result[0].result.longitude}&waypoint1=${props.latLng.result[1].result.latitude}%2C${props.latLng.result[1].result.longitude}&mode=fastest;${mode.value}${mode.value === 'car' ? vehicle.value : ''}&departure=now&apiKey=vqwt8WCBsecZgJJBRcIY4yJAeWx9rRtfifIQG8u67HY`)
         .then(res => setRoute(res.data))
-    }  
+    }
 
   }, [props])
   
 
-  
-  if (route) {
-    // console.log(route.lines[0].modeName)
-    console.log(route)    
-    // const legs = route.journeys.map(summary =>{
-    //   return summary.legs
-    // })
 
-    // // // tube
-    // const modeObjZero = legs[0].map(mode => {
-    //   return mode.mode
-    // })
-    // // // tube
-    // const modeObjOne = legs[1].map(mode => {
-    //   return mode.mode
-    // })
-    // // // tube
-    // const modeObjTwo = legs[2].map(mode => {
-    //   return mode.mode
-    // })
-    // // bus
-    // const modeObjThree = legs[3].map(mode => {
-    //   return mode.mode
-    // })
-    // // cycle
-    // const modeObjFour = legs[4].map(mode => {
-    //   return mode.mode
-    // })
-    // // cycle hire
-    // const modeObjFive = legs[5].map(mode => {
-    //   return mode.mode
-    // })
 
-    // console.log(modeObjZero.map(id => {
-    //   return id.id
-    // }))
-    // console.log(modeObjOne.map(id => {
-    //   return id.id
-    // }))
-    // console.log(modeObjTwo.map(id => {
-    //   return id.id
-    // }))
-    // console.log(modeObjThree.map(id => {
-    //   return id.id
-    // }))
-    // console.log(modeObjFour.map(id => {
-    //   return id.id
-    // }))
-    // console.log(modeObjFive.map(id => {
-    //   return id.id
-    // }))
-  }
 
   function handleChange(e) {
-    setMode(e.target.value)
+    setMode({ value: e.target.value })
   }
 
-console.log(mode)
+  function handleChange2(e) {
+    setVehicle({ value: e.target.value })
+  }
+
+  
+  if (route) {
+    console.log(route)
+  }
+
  
 
   return (
     <div>
-      <select onChange={(e) => handleChange(e)}>
-        <option name='tube'>tube</option>
-        <option name='bus'>bus</option>
-        <option name='cycle'>cycle</option>
-        <option name='drive'>drive</option>
+
+      <select value={mode.value} onChange={(e) => handleChange(e)}>
+        <option disabled>Travel Mode</option>
+        <option value='publicTransportTimeTable'>Public Transport</option>
+        <option value='car'>Drive</option>
+        <option value='bicycle'>Cycle</option>
+        {/* <option name='drive'>drive</option> */}
       </select>
+
+
+      {mode.value === 'car' && <select value={vehicle.value} onChange={(e) => handleChange2(e)}>
+        <option disabled>Vehicle Type</option>
+        <option value='&vehicletype=gasoline%2C5.5'>Gasoline Engine</option>
+        <option value='&vehicletype=diesel%2C5.5'>Diesel Engine</option>
+        <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
+      </select> }
+
+      {/* <div>{route && modeObjZero.map(id => {
+        return id.id
+      })}</div>
+      <div>{route && modeObjOne.map(id => {
+        return id.id
+      })}</div>
+      <div>{route && modeObjTwo.map(id => {
+        return id.id
+      })}</div> */}
+
+      <div>Depart at: {time.toLocaleString()}</div>
+
     </div>
   )
 }
