@@ -87,6 +87,16 @@ export default function TFLresult(props) {
 
       <div>Depart at: {time.toLocaleString()}</div>
 
+      {route && <div>
+        <div>
+          {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM 
+        </div>
+        <div> 
+          {Math.round(route.response.route[0].summary.baseTime / 60)} Min
+        </div>
+      </div>}
+      {route && route.response.route[0].summary.co2Emission && <div>{route.response.route[0].summary.co2Emission} Tons</div>}
+
     </div>
   )
 }
