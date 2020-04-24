@@ -42,7 +42,7 @@ export default function Register(props) {
 
   return (
     <div>
-      helloooo
+      
     </div>
   )
 }

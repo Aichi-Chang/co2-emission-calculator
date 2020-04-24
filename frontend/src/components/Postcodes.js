@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import Calendar from 'react-calendar'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
-import DateFnsUtils from '@date-io/date-fns'
-
-import 'react-calendar/dist/Calendar.css'
 
 import TFLresult from './TFLresult'
-import Picker from './Picker'
 
 
 
-export default function Postcodes(props) {
+export default function Postcodes() {
 
   const [postcodes, setPostcodes] = useState({
     postcodeFrom: '',
     postcodeTo: ''
   })
   const [latLng, setLatLng] = useState()
-
-  const [date, setDate] = useState(null)
-
   
   const [errors, setErrors] = useState({
     errors: ''
@@ -66,18 +56,6 @@ export default function Postcodes(props) {
           name= 'postcodeTo'
           onChange={(elem) => handleChang(elem)}
         />
-        {/* <select>
-          <option name='tube'>Tube</option>
-          <option name='bus'>Bus</option>
-          <option name='cycle'>Cycle</option>
-          <option name='drive'>Drive</option>
-        </select> */}
-
-        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Picker 
-            updateDate={setDate}
-          />
-        </MuiPickersUtilsProvider> */}
         <button>
           Get the info
         </button>
@@ -89,10 +67,6 @@ export default function Postcodes(props) {
         // date={date}
         postcodes={postcodes}
         latLng={latLng}
-        // latitudeFrom={latLng ? latLng.result[0].result.latitude : null}
-        // longitudeFrom={latLng ? latLng.result[0].result.longitude : null}
-        // latitudeTo={latLng ? latLng.result[1].result.latitude : null}
-        // longitudeTo={latLng ? latLng.result[1].result.longitude : null}
       />
 
     </div>

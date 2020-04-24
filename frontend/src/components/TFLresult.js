@@ -40,7 +40,6 @@ export default function TFLresult(props) {
 
 
 
-
   function handleChange(e) {
     setMode({ value: e.target.value })
   }
@@ -53,6 +52,8 @@ export default function TFLresult(props) {
   if (route) {
     console.log(route)
   }
+
+  
 
  
 
@@ -95,8 +96,9 @@ export default function TFLresult(props) {
           {Math.round(route.response.route[0].summary.baseTime / 60)} Min
         </div>
       </div>}
-      {route && route.response.route[0].summary.co2Emission && <div>{route.response.route[0].summary.co2Emission} Tons</div>}
-
+      {route && route.response.route[0].mode.transportModes[0] === 'car' && <div>{route.response.route[0].summary.co2Emission} Kilotons</div>}
+      {route && route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && <div>{((route.response.route[0].summary.distance / 1000).toFixed(1) * 0.042).toFixed(3)} Kilontons</div>}
+      {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>}
     </div>
   )
 }
