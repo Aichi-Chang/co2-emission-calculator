@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import TubeRoute, BusRoute, DriveRoute, CycleRoute, TravelBy
+from .models import PublicRoute, DriveRoute, CycleRoute, TravelBy
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -16,20 +16,14 @@ class TravelBySerializer(serializers.ModelSerializer):
 class TravelerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # tubeRoutes is hooked with models related_name
-        fields = ('id', 'username', 'tubeRoutes', 'busRoutes', 'driveRoutes', 'cycleRoutes')
+        # PublicRoutes is hooked with models related_name
+        fields = ('id', 'username', 'publicRoutes', 'driveRoutes', 'cycleRoutes')
 
 
-class TubeRouteSerializer(serializers.ModelSerializer):
+class PublicRouteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TubeRoute
+        model = PublicRoute
         fields = ('id', 'depart', 'arrive', 'departTime', 'arriveTime', 'duation', 'direction', 'departLon', 'departLat', 'arrivalLon', 'arrivalLat', 'carbonPrint', 'traveler', 'travelBy')
-
-
-class BusRouteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BusRoute
-        fields = '__all__'
 
 
 class DriveRouteSerializer(serializers.ModelSerializer):
@@ -44,12 +38,7 @@ class CycleRouteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class NestedTubeRouteSerializer(TubeRouteSerializer):
-
-    traveler = TravelerSerializer()
-
-
-class NestedBusRouteSerializer(BusRouteSerializer):
+class NestedPublicRouteSerializer(PublicRouteSerializer):
 
     traveler = TravelerSerializer()
 
@@ -68,8 +57,7 @@ class NestedCycleRouteSerializer(CycleRouteSerializer):
 class NestedTravelerSerializer(TravelerSerializer):
 
     # hooked with models' related_name= ''
-    tubeRoutes = TubeRouteSerializer(many=True)
-    busRoutes = BusRouteSerializer(many=True)
+    PublicRoutes = PublicRouteSerializer(many=True)
     driveRoutes = DriveRouteSerializer(many=True)
     cycleRoutes = CycleRouteSerializer(many=True)
 

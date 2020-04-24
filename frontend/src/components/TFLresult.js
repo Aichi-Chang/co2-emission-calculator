@@ -30,7 +30,6 @@ export default function TFLresult(props) {
     // `https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&journeyPreference=LeastInterchange&mode=${mode.value}`)
     
     if (props.latLng) {
-      console.log('route set2')
       axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?waypoint0=${props.latLng.result[0].result.latitude}%2C${props.latLng.result[0].result.longitude}&waypoint1=${props.latLng.result[1].result.latitude}%2C${props.latLng.result[1].result.longitude}&mode=fastest;${mode.value}${mode.value === 'car' ? vehicle.value : ''}&departure=now&apiKey=vqwt8WCBsecZgJJBRcIY4yJAeWx9rRtfifIQG8u67HY`)
         .then(res => setRoute(res.data))
     }
