@@ -16,6 +16,8 @@ const App = () => {
 
   return <div>
 
+    {/* logout */}
+
     <HashRouter>
 
       <Switch>

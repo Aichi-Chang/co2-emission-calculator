@@ -28,7 +28,7 @@ class Auth {
     return jwt.decode(this.getToken())
   }
 
-  static isAuthentication() {
+  static isAuthenticated() {
     const payload = this.getPayload()
     return payload
   }

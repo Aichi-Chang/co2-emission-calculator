@@ -27,9 +27,9 @@ export default function Register(props) {
     setData(data => ({
       ...data, [elem.target.name]: elem.target.value
     }))
-    setErrors(errors => ({
-      ...errors, [elem.target.name]: ''
-    }))
+    // setErrors(errors => ({
+    //   ...errors, [elem.target.name]: ''
+    // }))
   }
 
   function handleSubmit(elem) {

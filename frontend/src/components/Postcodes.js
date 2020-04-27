@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import TFLresult from './TFLresult'
+import Auth from '../lib/Auth'
 
 
 
@@ -39,7 +40,7 @@ export default function Postcodes() {
 
   return (
     <div>
-
+      {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
       <h3>Please enter the postcode:</h3>
       <form 
         onSubmit={(e) => handleSubmit(e)}
