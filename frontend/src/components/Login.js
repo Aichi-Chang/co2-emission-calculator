@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, createContext, useContext } from 'react'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 
-export default function Login(props) {
 
+
+
+export default function Login(props) {
 
   const [data, setData] = useState({
     email: '',
@@ -15,6 +17,8 @@ export default function Login(props) {
   })
 
   const [show, setShow] = useState(true)
+
+
 
 
 
@@ -31,8 +35,8 @@ export default function Login(props) {
       .then(res => {
         Auth.setToken(res.data.token)
         Auth.setUser(res.data.user)
-
         props.history.push('/')
+        window.location.reload()
       })
       .catch(err => setErrors(err.response.data))
   }
