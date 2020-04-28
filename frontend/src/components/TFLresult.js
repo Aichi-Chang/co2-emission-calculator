@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import AddToFav from './AddToFav'
 
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-
 
 
 
@@ -48,9 +48,9 @@ export default function TFLresult(props) {
   }
 
   
-  if (route) {
-    console.log(route)
-  }
+  // if (route) {
+  //   console.log(route)
+  // }
 
   
 
@@ -75,16 +75,6 @@ export default function TFLresult(props) {
         <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
       </select> }
 
-      {/* <div>{route && modeObjZero.map(id => {
-        return id.id
-      })}</div>
-      <div>{route && modeObjOne.map(id => {
-        return id.id
-      })}</div>
-      <div>{route && modeObjTwo.map(id => {
-        return id.id
-      })}</div> */}
-
       <div>Depart at: {time.toLocaleString()}</div>
 
       {route && <div>
@@ -98,6 +88,10 @@ export default function TFLresult(props) {
       {route && route.response.route[0].mode.transportModes[0] === 'car' && <div>{route.response.route[0].summary.co2Emission} Kilotons</div>}
       {route && route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && <div>{((route.response.route[0].summary.distance / 1000).toFixed(1) * 0.042).toFixed(3)} Kilontons</div>}
       {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>}
+
+      {route && <AddToFav 
+        // pass data down
+      />}
     </div>
   )
 }
