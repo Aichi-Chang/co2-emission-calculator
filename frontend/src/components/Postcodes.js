@@ -65,7 +65,6 @@ export default function Postcodes() {
       
       
       <TFLresult 
-        // date={date}
         postcodes={postcodes}
         latLng={latLng}
       />

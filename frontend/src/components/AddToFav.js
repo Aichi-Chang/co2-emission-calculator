@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import moment from 'moment'
 
 
 export default function AddToFav(props) {
@@ -19,18 +20,16 @@ export default function AddToFav(props) {
     carbonPrint: ''
   })
 
-  console.log(props)
-
   useEffect(() => {
     if (props){
       console.log(props.route.response.route[0].mode.transportModes[0])
       setData({
         travelBy: `${props.route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' ? 'public' : props.route.response.route[0].mode.transportModes[0]}`,
-        depart: `${props.time.toLocalString()}`,
+        depart: '',
         arrive: '',
-        departTime: '',
-        arriveTime: '',
-        duation: '',
+        departTime: `${props.time.time}`,
+        arriveTime: moment().add(`${Math.round(props.route.response.route[0].summary.baseTime / 60)}`, 'm').toString(),
+        duation: `${Math.round(props.route.response.route[0].summary.baseTime / 60)} minute`,
         direction: '',
         departLon: '',
         departLat: '',

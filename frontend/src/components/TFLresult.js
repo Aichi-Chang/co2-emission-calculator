@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AddToFav from './AddToFav'
+import moment from 'moment'
 
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -10,7 +11,7 @@ import 'regenerator-runtime/runtime'
 export default function TFLresult(props) {
 
   const [route, setRoute] = useState()
-  const [time, setTime] = useState(new Date())
+  const [time, setTime] = useState({ time: moment().format('LLL') })
   const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
   const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
 
@@ -32,9 +33,16 @@ export default function TFLresult(props) {
         .then(res => setRoute(res.data))
     }
 
+    setInterval(() => {
+      displayTime()
+    }, 60000)
+
   }, [props])
   
 
+  function displayTime() {
+    setTime({ time: moment().format('LLL') })
+  }
 
 
   function handleChange(e) {
@@ -73,7 +81,7 @@ export default function TFLresult(props) {
         <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
       </select> }
 
-      <div>Depart at: {time.toLocaleString()}</div>
+      <div>Depart at: {time.time}</div>
 
       {route && <div>
         <div>
