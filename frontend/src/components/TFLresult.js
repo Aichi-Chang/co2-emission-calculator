@@ -10,8 +10,6 @@ import 'regenerator-runtime/runtime'
 export default function TFLresult(props) {
 
   const [route, setRoute] = useState()
-  // const [result, setResult] = useState(null)
-  // const [depart, setDepart] = useState(null)
   const [time, setTime] = useState(new Date())
   const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
   const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
@@ -90,7 +88,8 @@ export default function TFLresult(props) {
       {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>}
 
       {route && <AddToFav 
-        // pass data down
+        route={route}
+        time={time}
       />}
     </div>
   )

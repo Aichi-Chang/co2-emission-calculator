@@ -8,11 +8,11 @@ urlpatterns = [
     path('public/', PublicListView.as_view()),
     path('public/<int:pk>/', PublicSingleView.as_view()),
 
-    path('drive/', DriveListView.as_view()),
-    path('drive/<int:pk>/', DriveSingleView.as_view()),
+    path('car/', DriveListView.as_view()),
+    path('car/<int:pk>/', DriveSingleView.as_view()),
 
-    path('cycle/', CycleListView.as_view()),
-    path('cycle/<int:pk>/', CycleSingleView.as_view()),
+    path('bicycle/', CycleListView.as_view()),
+    path('bicycle/<int:pk>/', CycleSingleView.as_view()),
 
     path('traveler/', TravelerSingleView.as_view())
 ]
