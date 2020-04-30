@@ -5,6 +5,7 @@ import TFLresult from './TFLresult'
 import Auth from '../lib/Auth'
 
 
+export const PostcodesContext = React.createContext()
 
 export default function Postcodes() {
 
@@ -62,13 +63,16 @@ export default function Postcodes() {
         </button>
       </form>
 
-      
-      
-      <TFLresult 
-        postcodes={postcodes}
-        latLng={latLng}
-      />
 
+      <PostcodesContext.Provider value={postcodes}>
+        <TFLresult 
+          postcodes={postcodes}
+          latLng={latLng}
+        />
+      </PostcodesContext.Provider>
+    
     </div>
+
+    
   )
 }

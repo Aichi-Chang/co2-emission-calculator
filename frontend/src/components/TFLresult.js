@@ -98,7 +98,7 @@ export default function TFLresult(props) {
       {route && <AddToFav 
         route={route}
         time={time}
-      />}
+      /> }
     </div>
   )
 }
