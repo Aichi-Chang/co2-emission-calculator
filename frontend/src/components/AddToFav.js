@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import moment from 'moment'
+// remeber to add {}
 import { PostcodesContext } from './Postcodes'
+import Auth from '../lib/Auth'
 
 
 export default function AddToFav(props) {
@@ -27,6 +29,7 @@ export default function AddToFav(props) {
 
 
   useEffect(() => {
+
     if (props){
       setData({
         travelBy: `${props.route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' ? 'public' : props.route.response.route[0].mode.transportModes[0]}`,
@@ -35,12 +38,12 @@ export default function AddToFav(props) {
         departTime: `${props.time.time}`,
         arriveTime: moment().add(`${Math.round(props.route.response.route[0].summary.baseTime / 60)}`, 'm').toString(),
         duation: `${Math.round(props.route.response.route[0].summary.baseTime / 60)} minute`,
-        direction: '',
-        departLon: '',
-        departLat: '',
-        arrivalLon: '',
-        arrivalLat: '',
-        carbonPrint: ''
+        direction: `Travel from ${props.route.response.route[0].waypoint[0].label} to ${props.route.response.route[0].waypoint[1].label}`,
+        departLon: `${props.route.response.route[0].waypoint[0].originalPosition.longitude}`,
+        departLat: `${props.route.response.route[0].waypoint[0].originalPosition.latitude}`,
+        arrivalLon: `${props.route.response.route[0].waypoint[1].originalPosition.longitude}`,
+        arrivalLat: `${props.route.response.route[0].waypoint[1].originalPosition.latitude}`,
+        carbonPrint: `${props.carb}`
       })
     }
     
@@ -50,7 +53,9 @@ export default function AddToFav(props) {
 
 
   function handleSubmit() {
-    axios.post(`/api/routes/${data.travelBy}`, data)
+    axios.post(`/api/routes/${data.travelBy}/`, data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
       .then(() => {
         props.history.push('/user')
       })   

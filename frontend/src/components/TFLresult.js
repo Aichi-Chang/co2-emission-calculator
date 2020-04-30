@@ -11,6 +11,7 @@ import 'regenerator-runtime/runtime'
 export default function TFLresult(props) {
 
   const [route, setRoute] = useState()
+  const [carb, setcarb] = useState()
   const [time, setTime] = useState({ time: moment().format('LLL') })
   const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
   const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
@@ -38,6 +39,22 @@ export default function TFLresult(props) {
     }, 60000)
 
   }, [props])
+
+
+  // Should I use one or many useEffect in component?
+  // https://stackoverflow.com/questions/54002792/should-i-use-one-or-many-useeffect-in-component
+  useEffect(() => {
+    if (route) {
+      if (route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable') {
+        setcarb(((route.response.route[0].summary.distance / 1000).toFixed(1) * 0.042).toFixed(3))
+      } else if (route.response.route[0].mode.transportModes[0] === 'car') {
+        setcarb(route.response.route[0].summary.co2Emission)
+      } else if (route.response.route[0].mode.transportModes[0] === 'bicycle') {
+        setcarb('Zero')
+      }
+    }
+
+  }, [route])
   
 
   function displayTime() {
@@ -52,13 +69,6 @@ export default function TFLresult(props) {
   function handleChange2(e) {
     setVehicle({ value: e.target.value })
   }
-
-  
-  // if (route) {
-  //   console.log(route)
-  // }
-
-  
 
  
 
@@ -91,13 +101,15 @@ export default function TFLresult(props) {
           {Math.round(route.response.route[0].summary.baseTime / 60)} Min
         </div>
       </div>}
-      {route && route.response.route[0].mode.transportModes[0] === 'car' && <div>{route.response.route[0].summary.co2Emission} Kilotons</div>}
+      {/* {route && route.response.route[0].mode.transportModes[0] === 'car' && <div>{route.response.route[0].summary.co2Emission} Kilotons</div>}
       {route && route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && <div>{((route.response.route[0].summary.distance / 1000).toFixed(1) * 0.042).toFixed(3)} Kilontons</div>}
-      {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>}
+      {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>} */}
+      {carb && <div>{carb} Kilontons</div>}
 
       {route && <AddToFav 
         route={route}
         time={time}
+        carb={carb}
       /> }
     </div>
   )
