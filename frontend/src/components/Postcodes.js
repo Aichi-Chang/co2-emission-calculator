@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import TFLresult from './TFLresult'
+import Map from './Map'
 import Auth from '../lib/Auth'
 
 
 export const PostcodesContext = React.createContext()
+export const RoutesContext = React.createContext()
 
 export default function Postcodes() {
 
@@ -70,7 +72,13 @@ export default function Postcodes() {
           latLng={latLng}
         />
       </PostcodesContext.Provider>
-    
+
+      <RoutesContext.Provider value={latLng}>
+        <Map />
+      </RoutesContext.Provider>
+      
+
+
     </div>
 
     
