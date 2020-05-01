@@ -53,22 +53,21 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
 
     permission_classes = (IsAuthenticated, )
     
-
-    def get_object(self, pk):
-        try:
-            return PublicRoute.objects.get(pk=pk)
-        except PublicRoute.DoesNotExist:
-            raise Http404
+    # def get_object(self, pk):
+    #     try:
+    #         return PublicRoute.objects.get(pk=pk)
+    #     except PublicRoute.DoesNotExist:
+    #         raise Http404
 
     def get(self, _request, pk, format=None):
-        publicRoute = self.get_object(pk)
-        serialized_with_user = NestedPublicRouteSerializer(publicRoute, many=True)
+        publicRoute = PublicRoute.objects.get(pk=pk)
+        serialized_with_user = NestedPublicRouteSerializer(publicRoute)
         return Response(serialized_with_user.data)
 
 
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
-        publicRoute = self.get_object(pk)
+        publicRoute = PublicRoute.objects.get(pk=pk)
         if publicRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -81,7 +80,7 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
             
 
     def delete(self, request, pk, format=None):
-        publicRoute = self.get_object(pk)
+        publicRoute = PublicRoute.objects.get(pk=pk)
         if publicRoute.owner.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         publicRoute.delete()
