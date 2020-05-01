@@ -5,6 +5,12 @@ import moment from 'moment'
 import { PostcodesContext } from './Postcodes'
 import Auth from '../lib/Auth'
 
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
+
+
+
 
 export default function AddToFav(props) {
 
@@ -22,15 +28,28 @@ export default function AddToFav(props) {
     departLat: '',
     arrivalLon: '',
     arrivalLat: '',
+    maneuverLon: [],
+    maneuverLat: [],
     carbonPrint: ''
   }
 
   const [data, setData] = useState(initialState)
+  const [open, setOpen] = useState(false)
 
 
   useEffect(() => {
 
     if (props){
+
+      const maneuver = `${props.route.response.route[0].leg[0].maneuver.map(pos => {
+        return pos.position.latitude
+      })}`.split(',')
+
+      const nums = maneuver.map(num => {
+        return parseFloat(num)
+      })
+
+
       setData({
         travelBy: `${props.route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' ? 'public' : props.route.response.route[0].mode.transportModes[0]}`,
         depart: `${postcodes.postcodeFrom}`.toUpperCase(),
@@ -39,11 +58,13 @@ export default function AddToFav(props) {
         arriveTime: moment().add(`${Math.round(props.route.response.route[0].summary.baseTime / 60)}`, 'm').toString(),
         duation: `${Math.round(props.route.response.route[0].summary.baseTime / 60)} minute`,
         direction: `Travel from ${props.route.response.route[0].waypoint[0].label} to ${props.route.response.route[0].waypoint[1].label}`,
-        departLon: `${props.route.response.route[0].waypoint[0].originalPosition.longitude}`,
-        departLat: `${props.route.response.route[0].waypoint[0].originalPosition.latitude}`,
-        arrivalLon: `${props.route.response.route[0].waypoint[1].originalPosition.longitude}`,
-        arrivalLat: `${props.route.response.route[0].waypoint[1].originalPosition.latitude}`,
-        carbonPrint: `${props.carb}`
+        departLon: parseFloat(`${props.route.response.route[0].waypoint[0].originalPosition.longitude}`),
+        departLat: parseFloat(`${props.route.response.route[0].waypoint[0].originalPosition.latitude}`),
+        arrivalLon: parseFloat(`${props.route.response.route[0].waypoint[1].originalPosition.longitude}`),
+        arrivalLat: parseFloat(`${props.route.response.route[0].waypoint[1].originalPosition.latitude}`),
+        maneuverLon: nums,
+        maneuverLat: nums,
+        carbonPrint: parseFloat(`${props.carb}`)
       })
     }
     
@@ -56,16 +77,28 @@ export default function AddToFav(props) {
     axios.post(`/api/routes/${data.travelBy}/`, data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => {
-        props.history.push('/user')
-      })   
+      .then(setOpen(true))  
   }
   
+  function handleClose() {
+    setOpen(false)
+  }
 
 
   return (
     <div> 
       <button onClick={(e) => handleSubmit(e)}>Add to Favorite</button>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+        open={open}
+        autoHideDuration={2500}
+        onClose={handleClose}
+        message='Added to dashboard!'
+      />
+
     </div>
   )
 }

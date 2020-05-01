@@ -29,7 +29,8 @@ class PublicRoute(models.Model):
     departLat = models.FloatField()
     arrivalLon = models.FloatField()
     arrivalLat = models.FloatField()
-    maneuver = ArrayField(models.FloatField())
+    maneuverLon = ArrayField(models.FloatField())
+    maneuverLat = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
@@ -49,7 +50,8 @@ class DriveRoute(models.Model):
     departLat = models.FloatField()
     arrivalLon = models.FloatField()
     arrivalLat = models.FloatField()
-    maneuver = ArrayField(models.FloatField())
+    maneuverLon = ArrayField(models.FloatField())
+    maneuverLat = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
@@ -69,7 +71,8 @@ class CycleRoute(models.Model):
     departLat = models.FloatField()
     arrivalLon = models.FloatField()
     arrivalLat = models.FloatField()
-    maneuver = ArrayField(models.FloatField())
+    maneuverLon = ArrayField(models.FloatField())
+    maneuverLat = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
