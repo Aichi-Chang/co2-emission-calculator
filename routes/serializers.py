@@ -23,8 +23,8 @@ class TravelerSerializer(serializers.ModelSerializer):
 class PublicRouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicRoute
-        fields = ('id', 'depart', 'arrive', 'departTime', 'arriveTime', 'duation', 'direction', 'departLon', 'departLat', 'arrivalLon', 'arrivalLat', 'carbonPrint', 'traveler', 'travelBy')
-
+        # fields = ('id', 'depart', 'arrive', 'departTime', 'arriveTime', 'duation', 'direction', 'departLon', 'departLat', 'arrivalLon', 'arrivalLat', 'maneuver', 'carbonPrint', 'traveler', 'travelBy')
+        fields = '__all__'
 
 class DriveRouteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,18 +48,21 @@ class NestedDriveRouteSerializer(DriveRouteSerializer):
     traveler = TravelerSerializer()
 
 
+
 class NestedCycleRouteSerializer(CycleRouteSerializer):
 
     # travelBy = TravelBySerializer()
     traveler = TravelerSerializer()
 
 
+
 class NestedTravelerSerializer(TravelerSerializer):
 
     # hooked with models' related_name= ''
-    PublicRoutes = PublicRouteSerializer(many=True)
+    publicRoutes = PublicRouteSerializer(many=True)
     driveRoutes = DriveRouteSerializer(many=True)
     cycleRoutes = CycleRouteSerializer(many=True)
+
 
 
 

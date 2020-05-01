@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -20,14 +21,15 @@ class PublicRoute(models.Model):
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20)
-    departTime = models.DateTimeField(auto_now_add=True)
-    arriveTime = models.DateTimeField()
-    duation = models.FloatField()
+    departTime = models.CharField(max_length=50)
+    arriveTime = models.CharField(max_length=50)
+    duation = models.CharField(max_length=50)
     direction = models.TextField()
     departLon = models.FloatField()
     departLat = models.FloatField()
     arrivalLon = models.FloatField()
     arrivalLat = models.FloatField()
+    maneuver = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
@@ -39,14 +41,15 @@ class DriveRoute(models.Model):
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20)
-    departTime = models.DateTimeField(auto_now_add=True)
-    arriveTime = models.DateTimeField()
-    duation = models.FloatField()
+    departTime = models.CharField(max_length=50)
+    arriveTime = models.CharField(max_length=50)
+    duation = models.CharField(max_length=50)
     direction = models.TextField()
-    departLon = models.IntegerField()
-    departLat = models.IntegerField()
-    arrivalLon = models.IntegerField()
-    arrivalLat = models.IntegerField()
+    departLon = models.FloatField()
+    departLat = models.FloatField()
+    arrivalLon = models.FloatField()
+    arrivalLat = models.FloatField()
+    maneuver = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
@@ -58,14 +61,15 @@ class CycleRoute(models.Model):
     depart = models.CharField(max_length=50)
     arrive = models.CharField(max_length=50)
     travelBy = models.CharField(max_length=20)
-    departTime = models.DateTimeField(auto_now_add=True)
-    arriveTime = models.DateTimeField()
-    duation = models.FloatField()
+    departTime = models.CharField(max_length=50)
+    arriveTime = models.CharField(max_length=50)
+    duation = models.CharField(max_length=50)
     direction = models.TextField()
-    departLon = models.IntegerField()
-    departLat = models.IntegerField()
-    arrivalLon = models.IntegerField()
-    arrivalLat = models.IntegerField()
+    departLon = models.FloatField()
+    departLat = models.FloatField()
+    arrivalLon = models.FloatField()
+    arrivalLat = models.FloatField()
+    maneuver = ArrayField(models.FloatField())
     carbonPrint = models.FloatField()
 
     def __str__(self):
