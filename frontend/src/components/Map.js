@@ -26,7 +26,7 @@ export default function Map(props) {
     type: 'Feature',
     geometry: {
       type: 'LineString',
-      coordinates: ''
+      coordinates: cordinateArr
     }
   }
 
@@ -57,8 +57,6 @@ export default function Map(props) {
 
   }, [props])
 
-  // console.log(cordi)
-
 
   const cordinateArr = []
 
@@ -82,6 +80,20 @@ export default function Map(props) {
         onViewportChange={(newViewport) => setViewport(newViewport)}
         mapboxApiAccessToken={token}
       >
+        <Source id='route' type='geojson' data={data} />
+        <Layer 
+          id='route'
+          type='line'
+          source='route'
+          layer={{
+            'line-join': 'round',
+            'line-cap': 'round'
+          }}
+          paint={{
+            'line-color': '#000',
+            'line-width': 8
+          }}
+        />
       </MapGL> 
     </div>
   )
