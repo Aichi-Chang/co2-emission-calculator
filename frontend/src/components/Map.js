@@ -5,11 +5,12 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 require('dotenv').config()
 
-const x = process.env.REACT_MAP_KEY
+const token = process.env.REACT_MAP_KEY
 
-console.log(x)
 
-export default function Map() {
+
+
+export default function Map(props) {
 
   const [viewport, setViewport] = useState({
     width: 570,
@@ -22,22 +23,22 @@ export default function Map() {
   })
 
 
-  function updateViewport(viewport) {
-    setViewport(viewport)
-  }
 
   // function renderMarker() {
 
   // }
 
   return (
+
+
     <div>
-      {/* <MapGL 
+      <MapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
-        onViewportChange={() => updateViewport()}
-        mapboxApiAccessToken={}
-      /> */}
+        onViewportChange={(newViewport) => setViewport(newViewport)}
+        mapboxApiAccessToken={token}
+      >
+      </MapGL> 
     </div>
   )
 }

@@ -73,9 +73,9 @@ export default function Postcodes() {
         />
       </PostcodesContext.Provider>
 
-      <RoutesContext.Provider value={latLng}>
-        <Map />
-      </RoutesContext.Provider>
+
+      <Map latLng={latLng}/>
+
       
 
 
