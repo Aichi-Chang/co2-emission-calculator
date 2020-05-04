@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import MapGL, {Marker, Popup} from 'react-map-gl'
-
+import React, { useState, useEffect } from 'react'
+import MapGL, { Source, Layer } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 require('dotenv').config()
@@ -13,20 +12,65 @@ const token = process.env.REACT_MAP_KEY
 export default function Map(props) {
 
   const [viewport, setViewport] = useState({
-    width: 570,
-    height: 300,
+    width: 800,
+    height: 400,
     latitude: 51.5074,
-    longitude: 0.1278,
-    zoom: 13,
-    bearing: 0,
-    pitch: 0
+    longitude: -0.1039,
+    zoom: 11
   })
 
+  const [cordi, setCordi] = useState([])
 
 
-  // function renderMarker() {
+  const data = {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates: ''
+    }
+  }
 
-  // }
+  useEffect(() => {
+
+    const route = props.route.response.route[0]
+
+    const maneuverLo = `${route.leg[0].maneuver.map(pos => {
+      return pos.position.longitude
+    })}`.split(',')
+
+    const Lon = maneuverLo.map(num => {
+      return parseFloat(num)
+    })
+
+    const maneuverLa = `${route.leg[0].maneuver.map(pos => {
+      return pos.position.latitude
+    })}`.split(',')
+
+    const Lat = maneuverLa.map(num => {
+      return parseFloat(num)
+    })
+
+
+    
+    setCordi([...Lon, ...Lat])
+
+
+  }, [props])
+
+  // console.log(cordi)
+
+
+  const cordinateArr = []
+
+  for (let i = 0; i < (cordi.length / 2); i++) {
+    console.log(cordi)
+    console.log(i)
+    console.log((cordi.length / 2) + i)
+    cordinateArr.push([cordi[i], cordi[(cordi.length / 2) + i]])
+  }
+
+  console.log(cordinateArr)
+
 
   return (
 

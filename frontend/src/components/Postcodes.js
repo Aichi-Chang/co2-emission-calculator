@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import TFLresult from './TFLresult'
-import Map from './Map'
 import Auth from '../lib/Auth'
 
 
@@ -72,9 +71,6 @@ export default function Postcodes() {
           latLng={latLng}
         />
       </PostcodesContext.Provider>
-
-
-      <Map latLng={latLng}/>
 
       
 

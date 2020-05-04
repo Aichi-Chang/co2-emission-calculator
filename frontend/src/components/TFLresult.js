@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AddToFav from './AddToFav'
 import moment from 'moment'
+import Map from './Map'
 
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -110,7 +111,11 @@ export default function TFLresult(props) {
         route={route}
         time={time}
         carb={carb}
-      /> }
+      />}
+      
+      {route && 
+      <Map route={route}
+      />}
     </div>
   )
 }
