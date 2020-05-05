@@ -16,6 +16,7 @@ export default function TFLresult(props) {
   const [time, setTime] = useState({ time: moment().format('LLL') })
   const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
   const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
+  const [instruction, setInstruction] = useState([])
 
   
   // The argument passed to useState is the initial state much like setting state in constructor for a class component 
@@ -53,6 +54,17 @@ export default function TFLresult(props) {
       } else if (route.response.route[0].mode.transportModes[0] === 'bicycle') {
         setcarb('Zero')
       }
+
+      const fullIns = route.response.route[0].leg[0].maneuver.map((instruction) => {
+        return instruction.instruction
+      })
+      const regex = /(<span class="exit">|<span class="sign">|<span lang="en">|<span class="number">|<span class="toward_street">|<span class="stops">|<span class="line">|<span class="destination">|<span class="transit">|<span class="station">|<span class="company">|<span class="next-street">|<span class="street">|<span class="heading">|<span class="length">|<span class="distance-description">|<span class="direction">|<\/span>)/g
+      
+      const fullInstruction = fullIns.map(ins => {
+        return ins.replace(regex, '')
+      })
+
+      setInstruction(fullInstruction)
     }
 
   }, [route])
@@ -70,7 +82,7 @@ export default function TFLresult(props) {
   function handleChange2(e) {
     setVehicle({ value: e.target.value })
   }
-
+    
  
 
   return (
@@ -117,12 +129,9 @@ export default function TFLresult(props) {
       <Map route={route}
       />}
 
-      {route && 
-          route.response.route[0].leg[0].maneuver.map((instruction, i) => {
-            return <div key={i}>
-              {instruction.instruction}
-            </div>
-          })}
+      {route && <div>{instruction.map((p, i) => {
+        return <p key={i}>{p}</p>
+      })}</div>}
     </div>
   )
 }
