@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import MapGL, { Source, Layer } from 'react-map-gl'
+import MapGL, { Source, Layer, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 require('dotenv').config()
@@ -42,7 +42,6 @@ export default function Map(props) {
       return parseFloat(num)
     })
 
-
     
     setCordi([...Lon, ...Lat])
 
@@ -64,7 +63,7 @@ export default function Map(props) {
     }
   }
 
-  console.log(data)
+  console.log(props.route.response.route[0].mode.transportModes[0])
 
 
   return (
@@ -91,6 +90,10 @@ export default function Map(props) {
             'line-width': 5
           }}
         />
+        {props.route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && 
+        <Popup longitude={viewport.longitude} latitude={viewport.latitude} closeButton={false} closeOnClick={false}>
+          hello 👏
+        </Popup>}
       </MapGL> 
     </div>
   )
