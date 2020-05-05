@@ -22,14 +22,6 @@ export default function Map(props) {
   const [cordi, setCordi] = useState([])
 
 
-  const data = {
-    type: 'Feature',
-    geometry: {
-      type: 'LineString',
-      coordinates: cordinateArr
-    }
-  }
-
   useEffect(() => {
 
     const route = props.route.response.route[0]
@@ -58,16 +50,21 @@ export default function Map(props) {
   }, [props])
 
 
-  const cordinateArr = []
-
+  const coordinateArr = []
   for (let i = 0; i < (cordi.length / 2); i++) {
-    console.log(cordi)
-    console.log(i)
-    console.log((cordi.length / 2) + i)
-    cordinateArr.push([cordi[i], cordi[(cordi.length / 2) + i]])
+    coordinateArr.push([cordi[i], cordi[(cordi.length / 2) + i]])
   }
 
-  console.log(cordinateArr)
+
+  const data = {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates: coordinateArr
+    }
+  }
+
+  console.log(data)
 
 
   return (
@@ -90,8 +87,8 @@ export default function Map(props) {
             'line-cap': 'round'
           }}
           paint={{
-            'line-color': '#000',
-            'line-width': 8
+            'line-color': '#a83a32',
+            'line-width': 5
           }}
         />
       </MapGL> 
