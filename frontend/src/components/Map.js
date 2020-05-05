@@ -63,7 +63,8 @@ export default function Map(props) {
     }
   }
 
-  console.log(props.route.response.route[0].mode.transportModes[0])
+
+
 
 
   return (
@@ -90,10 +91,17 @@ export default function Map(props) {
             'line-width': 5
           }}
         />
-        {props.route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && 
-        <Popup longitude={viewport.longitude} latitude={viewport.latitude} closeButton={false} closeOnClick={false}>
-          hello 👏
-        </Popup>}
+        {props && 
+        <div>
+          <Popup longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} closeOnClick={false}>
+            {props.route.response.route[0].waypoint[0].mappedRoadName}
+          </Popup>
+          <Popup longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} closeOnClick={false}>
+            {props.route.response.route[0].waypoint[1].mappedRoadName}
+          </Popup>
+        </div>
+          
+        }
       </MapGL> 
     </div>
   )

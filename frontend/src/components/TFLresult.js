@@ -116,6 +116,13 @@ export default function TFLresult(props) {
       {route && 
       <Map route={route}
       />}
+
+      {route && 
+          route.response.route[0].leg[0].maneuver.map((instruction, i) => {
+            return <div key={i}>
+              {instruction.instruction}
+            </div>
+          })}
     </div>
   )
 }
