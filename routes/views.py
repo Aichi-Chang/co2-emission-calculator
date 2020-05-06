@@ -68,7 +68,7 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
         publicRoute = PublicRoute.objects.get(pk=pk)
-        if publicRoute.owner.id != request.user.id:
+        if publicRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         updated_serializer = PublicRouteSerializer(publicRoute)
@@ -81,10 +81,11 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, pk, format=None):
         publicRoute = PublicRoute.objects.get(pk=pk)
-        if publicRoute.owner.id != request.user.id:
+        if publicRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         publicRoute.delete()
-        return Response(status=status.HTTP_200_OK)
+        message = {'Route Deleted'}
+        return Response(message, status=status.HTTP_200_OK)
 
 
 # **************** Drive Route ****************
@@ -125,7 +126,7 @@ class DriveSingleView(APIView):
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
         driveRoute = DriveRoute.objects.get(pk=pk)
-        if driveRoute.owner.id != request.user.id:
+        if driveRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         updated_serializer = DriveRouteSerializer(driveRoute)
@@ -138,10 +139,11 @@ class DriveSingleView(APIView):
 
     def delete(self, request, pk, format=None):
         driveRoute = DriveRoute.objects.get(pk=pk)
-        if driveRoute.owner.id != request.user.id:
+        if driveRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         driveRoute.delete()
-        return Response(status=status.HTTP_200_OK)
+        message = {'Route Deleted'}
+        return Response(message, status=status.HTTP_200_OK)
 
 
 # **************** Cycle Route ****************
@@ -177,7 +179,7 @@ class CycleSingleView(APIView):
     def put(self, request, pk, format=None):
         request.data['traveler'] = request.user.id
         cycleRoute = CycleRoute.objects.get(pk=pk)
-        if cycleRoute.owner.id != request.user.id:
+        if cycleRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         updated_serializer = CycleRouteSerializer(cycleRoute)
@@ -190,10 +192,11 @@ class CycleSingleView(APIView):
 
     def delete(self, request, pk, format=None):
         cycleRoute = CycleRoute.objects.get(pk=pk)
-        if cycleRoute.owner.id != request.user.id:
+        if cycleRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         cycleRoute.delete()
-        return Response(status=status.HTTP_200_OK)
+        message = {'Route Deleted'}
+        return Response(message, status=status.HTTP_200_OK)
 
 
 
