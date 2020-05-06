@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import TFLresult from './TFLresult'
 import Auth from '../lib/Auth'
 
-
 export const PostcodesContext = React.createContext()
 export const RoutesContext = React.createContext()
+
+
 
 export default function Postcodes() {
 
@@ -38,10 +40,11 @@ export default function Postcodes() {
       .catch(err => setErrors(err.response.data))
   }
 
-  // console.log(latLng)
+
 
   return (
     <div>
+      <button><Link to='/user'>Dashboard</Link></button>
       {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
       <h3>Please enter the postcode:</h3>
       <form 

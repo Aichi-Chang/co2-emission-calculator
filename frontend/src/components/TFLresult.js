@@ -3,6 +3,7 @@ import axios from 'axios'
 import AddToFav from './AddToFav'
 import moment from 'moment'
 import Map from './Map'
+import Auth from '../lib/Auth'
 
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -119,7 +120,7 @@ export default function TFLresult(props) {
       {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>} */}
       {carb && <div>{carb} Kilontons</div>}
 
-      {route && <AddToFav 
+      {route && Auth.isAuthenticated() && <AddToFav 
         route={route}
         time={time}
         carb={carb}
