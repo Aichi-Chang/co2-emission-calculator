@@ -29,10 +29,18 @@ export default function User(props) {
   return (
     <div>
       <button><Link to='/'>Back to Search</Link></button>
+
       <div>Public Transport Routes: </div>
+
       {userData && <div>{userData[0].publicRoutes.map((direction, i) => {
         return <div key={i}>
-          {direction.direction}
+          <Link
+            key={direction.id}
+            index={i}
+            to={`/route/${direction.id}`}
+          >
+            {direction.direction}
+          </Link>
           <button
             value={direction.travelBy}
             id={direction.id}
@@ -40,10 +48,17 @@ export default function User(props) {
           >Delete Route</button>
         </div>
       })}</div>}
+
       <div>Self-drive Routes: </div>
       {userData && <div>{userData[0].driveRoutes.map((direction, i) => {
         return <div key={i}>
-          {direction.direction}
+          <Link
+            key={direction.id}
+            index={i}
+            to={`/route/${direction.id}`}
+          >
+            {direction.direction}
+          </Link>
           <button
             value={direction.travelBy}
             id={direction.id}
@@ -51,10 +66,17 @@ export default function User(props) {
           >Delete Route</button>
         </div>
       })}</div>}
+
       <div>Cycle Routes: </div>
       {userData && <div>{userData[0].cycleRoutes.map((direction, i) => {
         return <div key={i}>
-          {direction.direction}
+          <Link
+            key={direction.id}
+            index={i}
+            to={`/route/${direction.id}`}
+          >
+            {direction.direction}
+          </Link>
           <button
             value={direction.travelBy}
             id={direction.id}

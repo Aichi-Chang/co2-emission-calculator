@@ -93,10 +93,10 @@ export default function Map(props) {
         />
         {props && 
         <div>
-          <Popup longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} closeOnClick={false}>
+          <Popup longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} >
             {props.route.response.route[0].waypoint[0].mappedRoadName}
           </Popup>
-          <Popup longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} closeOnClick={false}>
+          <Popup longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} >
             {props.route.response.route[0].waypoint[1].mappedRoadName}
           </Popup>
         </div>

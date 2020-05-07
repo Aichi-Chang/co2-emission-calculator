@@ -13,6 +13,7 @@ import Login from './components/Login'
 import Postcodes from './components/Postcodes'
 import User from './components/User'
 import Nav from './components/Nav'
+import SingleRoute from './components/SingleRoute'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route exact path = '/user' component={User} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/route/:id' component={SingleRoute} />
       </Switch>
     </HashRouter>
 
