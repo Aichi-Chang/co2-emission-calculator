@@ -53,7 +53,7 @@ export default function TFLresult(props) {
       } else if (route.response.route[0].mode.transportModes[0] === 'car') {
         setcarb(route.response.route[0].summary.co2Emission)
       } else if (route.response.route[0].mode.transportModes[0] === 'bicycle') {
-        setcarb('Zero')
+        setcarb(0)
       }
 
       const fullIns = route.response.route[0].leg[0].maneuver.map((instruction) => {
