@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV === 'production' ? (
 )
 
 module.exports = {
-  entry: './src/app.js',
+  entry: [__dirname + '/frontend/src/app.js', __dirname + '/frontend/src/scss/index.scss'],
   context: path.resolve(__dirname, 'frontend'),
   output: {
     filename: 'bundle.js',
@@ -24,7 +24,7 @@ module.exports = {
       { test: /\.s(a|c)ss$/, loader: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.woff2?$/, loader: 'file-loader' },
       { test: /\.(jpg|png|gif)$/, loader: 'file-loader' },
-      { test: /\.svg$/, use: ['svg-url-loader', 'url-loader'] }      
+      { test: /\.svg$/, use: ['svg-url-loader', 'url-loader'] }   
     ]
   },
   devServer: {

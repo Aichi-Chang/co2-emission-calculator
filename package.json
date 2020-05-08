@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "webpack-p",
+    "build": "webpack --config webpack.config.js --mode='production'",
     "serve:back": "python manage.py runserver",
     "serve:front": "webpack-dev-server",
     "sass": "sass --watch frontend/src/scss/index.scss:frontend/src/css/index.css"
@@ -42,6 +42,7 @@
     "mapbox-gl": "^1.10.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
     "react": "^16.13.1",
     "react-calendar": "^3.0.1",
     "react-dom": "^16.13.1",

@@ -32,11 +32,10 @@ export default function User(props) {
 
   return (
     
-    <div>
+    <div className='ml3 relative vh-100 overflow-hidden'>
       
       {Auth.isAuthenticated() && 
-      <div>
-        <button><Link to='/'>Back to Search</Link></button>
+      <div className='mt6'>
         
         <h2>{Auth.getUser().username}'s Dahsboard</h2>
 
@@ -105,7 +104,11 @@ export default function User(props) {
             >Delete Route</button>
           </div>
         })}</div>
+
+        <button className='button pointer grow absolute bottom-2'><Link class='link black' to='/'>Back to Search</Link></button>
+      
       </div>}
+
 
     </div>
   )

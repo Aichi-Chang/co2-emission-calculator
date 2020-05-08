@@ -43,10 +43,11 @@ export default function Postcodes() {
 
 
   return (
-    <div>
-      {Auth.isAuthenticated() && <button><Link to='/user'>Dashboard</Link></button>}
+    <div className='flex items-center justify-center mt5'>
+      
       {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
-      <h3>Please enter the postcode:</h3>
+
+      <h3 className=''>Please enter the postcode:</h3>
       <form 
         onSubmit={(e) => handleSubmit(e)}
       >

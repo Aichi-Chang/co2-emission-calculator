@@ -1,6 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap');
 
+$button-font: 'Cabin', sans-serif;
+$primary-color: rgb(216, 240, 231);
 
 body {
-  background-color: gray;
+  background-color: #fff;
   color: rgb(30, 43, 216);
+  height: 100vh;
+}
+
+@mixin buttonStyle {
+  font-family: $button-font;
+  background-color: $primary-color;
+  border: none;
+  color: black;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  &:hover {
+    background-color: #fff;
+    transition: 0.3s;
+  }
+}
+
+.button {
+  @include buttonStyle;
 }
