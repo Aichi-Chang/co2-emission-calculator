@@ -25,17 +25,24 @@ export default function User(props) {
   }
 
 
+  if (!userData) {
+    return <div>Please <Link to='/login'>login</Link> or <Link to='/register'>sign up</Link> for full access of the dashboard</div>
+  }
+
 
   return (
     
     <div>
+      
       {Auth.isAuthenticated() && 
       <div>
         <button><Link to='/'>Back to Search</Link></button>
+        
+        <h2>{Auth.getUser().username}'s Dahsboard</h2>
 
         <div>Public Transport Routes: </div>
 
-        {userData && <div>{userData[0].publicRoutes.map((direction, i) => {
+        <div>{userData[0].publicRoutes.map((direction, i) => {
           return <div key={i}>
             <Link
               value={direction.travelBy}
@@ -54,10 +61,10 @@ export default function User(props) {
               onClick={(e) => handleDeletePublic(e)}
             >Delete Route</button>
           </div>
-        })}</div>}
+        })}</div>
 
         <div>Self-drive Routes: </div>
-        {userData && <div>{userData[0].driveRoutes.map((direction, i) => {
+        <div>{userData[0].driveRoutes.map((direction, i) => {
           return <div key={i}>
             <Link
               value={direction.travelBy}
@@ -76,10 +83,10 @@ export default function User(props) {
               onClick={(e) => handleDeletePublic(e)}
             >Delete Route</button>
           </div>
-        })}</div>}
+        })}</div>
 
         <div>Cycle Routes: </div>
-        {userData && <div>{userData[0].cycleRoutes.map((direction, i) => {
+        <div>{userData[0].cycleRoutes.map((direction, i) => {
           return <div key={i}>
             <Link
               key={direction.id}
@@ -97,8 +104,9 @@ export default function User(props) {
               onClick={(e) => handleDeletePublic(e)}
             >Delete Route</button>
           </div>
-        })}</div>}
+        })}</div>
       </div>}
+
     </div>
   )
 }

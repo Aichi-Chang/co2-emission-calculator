@@ -85,6 +85,9 @@ export default function TFLresult(props) {
   }
     
  
+  if (!route) {
+    return <div>Where would you like to go?</div>
+  }
 
   return (
     <div>
@@ -94,7 +97,6 @@ export default function TFLresult(props) {
         <option value='publicTransportTimeTable'>Public Transport</option>
         <option value='car'>Drive</option>
         <option value='bicycle'>Cycle</option>
-        {/* <option name='drive'>drive</option> */}
       </select>
 
 
@@ -107,32 +109,29 @@ export default function TFLresult(props) {
 
       <div>Depart at: {time.time}</div>
 
-      {route && <div>
+      <div>
         <div>
           {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM 
         </div>
         <div> 
           {Math.round(route.response.route[0].summary.baseTime / 60)} Min
         </div>
-      </div>}
-      {/* {route && route.response.route[0].mode.transportModes[0] === 'car' && <div>{route.response.route[0].summary.co2Emission} Kilotons</div>}
-      {route && route.response.route[0].mode.transportModes[0] === 'publicTransportTimeTable' && <div>{((route.response.route[0].summary.distance / 1000).toFixed(1) * 0.042).toFixed(3)} Kilontons</div>}
-      {route && route.response.route[0].mode.transportModes[0] === 'bicycle' && <div>0 Kilontons</div>} */}
-      {carb && <div>{carb} Kilontons</div>}
+      </div>
 
-      {route && Auth.isAuthenticated() && <AddToFav 
+      <div>{carb} Kilontons</div>
+
+      {Auth.isAuthenticated() && <AddToFav 
         route={route}
         time={time}
         carb={carb}
+        instruction={instruction}
       />}
       
-      {route && 
-      <Map route={route}
-      />}
+      <Map route={route} />
 
-      {route && <div>{instruction.map((p, i) => {
+      <div>{instruction.map((p, i) => {
         return <p key={i}>{p}</p>
-      })}</div>}
+      })}</div>
     </div>
   )
 }

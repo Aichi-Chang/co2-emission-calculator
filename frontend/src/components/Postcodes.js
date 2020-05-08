@@ -44,7 +44,7 @@ export default function Postcodes() {
 
   return (
     <div>
-      <button><Link to='/user'>Dashboard</Link></button>
+      {Auth.isAuthenticated() && <button><Link to='/user'>Dashboard</Link></button>}
       {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
       <h3>Please enter the postcode:</h3>
       <form 
@@ -63,7 +63,7 @@ export default function Postcodes() {
           onChange={(elem) => handleChang(elem)}
         />
         <button>
-          Get the info
+          Search
         </button>
       </form>
 

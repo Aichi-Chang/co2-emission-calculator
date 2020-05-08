@@ -11,6 +11,7 @@ const token = process.env.REACT_MAP_KEY
 
 export default function Map(props) {
 
+
   const [viewport, setViewport] = useState({
     width: 800,
     height: 400,
@@ -24,36 +25,41 @@ export default function Map(props) {
 
   useEffect(() => {
 
-    const route = props.route.response.route[0]
+    if (props.route) {
+      const route = props.route.response.route[0]
 
-    const maneuverLo = `${route.leg[0].maneuver.map(pos => {
-      return pos.position.longitude
-    })}`.split(',')
+      const maneuverLo = `${route.leg[0].maneuver.map(pos => {
+        return pos.position.longitude
+      })}`.split(',')
 
-    const Lon = maneuverLo.map(num => {
-      return parseFloat(num)
-    })
+      const Lon = maneuverLo.map(num => {
+        return parseFloat(num)
+      })
 
-    const maneuverLa = `${route.leg[0].maneuver.map(pos => {
-      return pos.position.latitude
-    })}`.split(',')
+      const maneuverLa = `${route.leg[0].maneuver.map(pos => {
+        return pos.position.latitude
+      })}`.split(',')
 
-    const Lat = maneuverLa.map(num => {
-      return parseFloat(num)
-    })
+      const Lat = maneuverLa.map(num => {
+        return parseFloat(num)
+      })
 
-    
-    setCordi([...Lon, ...Lat])
+      setCordi([...Lon, ...Lat])
+    } else {
 
+      setCordi([...props.singleData.maneuverLon, ...props.singleData.maneuverLat])
+      
+    }
 
   }, [props])
+
+
 
 
   const coordinateArr = []
   for (let i = 0; i < (cordi.length / 2); i++) {
     coordinateArr.push([cordi[i], cordi[(cordi.length / 2) + i]])
   }
-
 
   const data = {
     type: 'Feature',
@@ -62,6 +68,7 @@ export default function Map(props) {
       coordinates: coordinateArr
     }
   }
+
 
 
 
@@ -91,17 +98,38 @@ export default function Map(props) {
             'line-width': 5
           }}
         />
-        {props && 
+        {props.route && 
         <div>
-          <Popup longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} >
+          <Popup 
+            longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} 
+            latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} >
             {props.route.response.route[0].waypoint[0].mappedRoadName}
           </Popup>
-          <Popup longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} >
+          <Popup 
+            longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} 
+            latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} >
             {props.route.response.route[0].waypoint[1].mappedRoadName}
           </Popup>
-        </div>
-          
+        </div>}
+
+        {props.singleData && 
+          <div>
+            <Popup
+              longitude={props.singleData.departLon}
+              latitude={props.singleData.departLat}
+            >
+              {props.singleData.depart}
+            </Popup>
+
+            <Popup
+              longitude={props.singleData.arrivalLon}
+              latitude={props.singleData.arrivalLat}
+            >
+              {props.singleData.arrive}
+            </Popup>
+          </div>
         }
+
       </MapGL> 
     </div>
   )

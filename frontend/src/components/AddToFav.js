@@ -57,14 +57,17 @@ export default function AddToFav(props) {
     })
 
 
+
+
     setData({
       travelBy: `${route.mode.transportModes[0] === 'publicTransportTimeTable' ? 'public' : props.route.response.route[0].mode.transportModes[0]}`,
       depart: `${postcodes.postcodeFrom}`.toUpperCase(),
       arrive: `${postcodes.postcodeTo}`.toUpperCase(),
       departTime: `${props.time.time}`,
-      arriveTime: moment().add(`${Math.round(route.summary.baseTime / 60)}`, 'm').toString(),
+      arriveTime: moment().add(`${Math.round(route.summary.baseTime / 60)}`, 'm').format('LLL').toString(),
       duation: `${Math.round(route.summary.baseTime / 60)} minute`,
       direction: `Travel from ${route.waypoint[0].label} to ${props.route.response.route[0].waypoint[1].label}`,
+      instruction: `${props.instruction}`,
       departLon: parseFloat(`${route.waypoint[0].originalPosition.longitude}`),
       departLat: parseFloat(`${route.waypoint[0].originalPosition.latitude}`),
       arrivalLon: parseFloat(`${route.waypoint[1].originalPosition.longitude}`),
