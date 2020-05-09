@@ -86,11 +86,11 @@ export default function TFLresult(props) {
     
  
   if (!route) {
-    return <div>Where would you like to go?</div>
+    return <div className='mt3'>That's see how much CO2 emissions the route creats 👣</div>
   }
 
   return (
-    <div>
+    <div className='mt4-l mt3 mw9-l mw5 flex flex-column '>
 
       <select value={mode.value} onChange={(e) => handleChange(e)}>
         <option disabled>Travel Mode</option>

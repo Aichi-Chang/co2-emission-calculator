@@ -43,32 +43,38 @@ export default function Postcodes() {
 
 
   return (
-    <div className='flex items-center justify-center mt5'>
+    <div className='flex flex-column items-center'>
+
+      <div className='mt6-l mt5 mr3 ml3 mw6 mw9-l'>
+        {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
+
+        <h2 className='mt5 '>Please Enter the Postcodes:</h2>
+
+        <form 
+          className='flex flex-column justify-center'
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <input
+            className='bb input ma3'
+            placeholder = 'From...'
+            required = {true}
+            name = 'postcodeFrom'
+            onChange={(elem) => handleChang(elem)}
+          />
+          <input
+            className='bb input ma3'
+            placeholder = 'To...'
+            required = {true}
+            name= 'postcodeTo'
+            onChange={(elem) => handleChang(elem)}
+          />
+          <button className='pointer button grow ma3'>
+            Search
+          </button>
+        </form>
+
+      </div>
       
-      {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
-
-      <h3 className=''>Please enter the postcode:</h3>
-      <form 
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <input
-          placeholder = 'From...'
-          required = {true}
-          name = 'postcodeFrom'
-          onChange={(elem) => handleChang(elem)}
-        />
-        <input
-          placeholder = 'To...'
-          required = {true}
-          name= 'postcodeTo'
-          onChange={(elem) => handleChang(elem)}
-        />
-        <button>
-          Search
-        </button>
-      </form>
-
-
       <PostcodesContext.Provider value={postcodes}>
         <TFLresult 
           postcodes={postcodes}

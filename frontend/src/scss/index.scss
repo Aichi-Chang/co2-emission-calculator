@@ -1,16 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
 
-$button-font: 'Cabin', sans-serif;
+$primary-font: 'Cabin', sans-serif;
+$secondery-font: 'Cormorant Garamond', serif;
+$nav-font: 'Archivo', sans-serif;
+$main-color:  rgb(30, 43, 216);
 $primary-color: rgb(216, 240, 231);
+$gray: rgb(128, 128, 128);
+
+* {
+  box-sizing: border-box;
+}
+
 
 body {
+  font-family: $primary-font;
   background-color: #fff;
-  color: rgb(30, 43, 216);
+  color: $main-color;
   height: 100vh;
 }
 
 @mixin buttonStyle {
-  font-family: $button-font;
+  font-family: $nav-font;
   background-color: $primary-color;
   border: none;
   color: black;
@@ -25,6 +37,23 @@ body {
   }
 }
 
+
+input {
+  font-family: $secondery-font;
+  border: 0;
+  border-bottom: 1px solid black;
+  outline: 0;
+  font-size: 1.3rem;
+  color: $main-color;
+  padding: 7px 0;
+  transition: .3s ease;
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+
+
 .button {
   @include buttonStyle;
 }
+

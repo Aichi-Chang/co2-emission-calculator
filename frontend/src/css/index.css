@@ -1,12 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo&display=swap");
+* {
+  box-sizing: border-box;
+}
+
 body {
+  font-family: "Cabin", sans-serif;
   background-color: #fff;
   color: #1e2bd8;
   height: 100vh;
 }
 
+input {
+  font-family: "Cormorant Garamond", serif;
+  border: 0;
+  border-bottom: 1px solid black;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #1e2bd8;
+  padding: 7px 0;
+  transition: 0.3s ease;
+}
+input:focus::placeholder {
+  color: transparent;
+}
+
 .button {
-  font-family: "Cabin", sans-serif;
+  font-family: "Archivo", sans-serif;
   background-color: #d8f0e7;
   border: none;
   color: black;

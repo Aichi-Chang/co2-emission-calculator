@@ -14,12 +14,12 @@ export default function Nav() {
   }
 
   return (
-    <div className='fixed z-2'>
+    <div className='fixed z-2 right-2-l right-0 mw9-l mw5'>
 
-      {Auth.isAuthenticated() && <button className='pointer button grow ma3' onClick={() => handleLogout()}>Log Out</button>}
-      {!Auth.isAuthenticated() && <button className='pointer button grow ma3'><Link class='link black' to='/login'>Log in</Link></button>}
-      {!Auth.isAuthenticated() && <button className='pointer button grow ma3'><Link class='link black'to='/register'>Sign Up</Link></button>}
-      {Auth.isAuthenticated() && <button className='pointer button grow ma3'><Link class='link black' to='/user'>Dashboard</Link></button>}
+      {Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2' onClick={() => handleLogout()}>Log Out</button>}
+      {!Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link class='link black' to='/login'>Log in</Link></button>}
+      {!Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link class='link black'to='/register'>Sign Up</Link></button>}
+      {Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link class='link black' to='/user'>Dashboard</Link></button>}
 
     </div>
   )
