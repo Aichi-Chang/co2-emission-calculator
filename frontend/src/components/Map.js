@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import MapGL, { Source, Layer, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { ms } from 'date-fns/esm/locale'
 
 require('dotenv').config()
 
@@ -13,10 +14,10 @@ export default function Map(props) {
 
 
   const [viewport, setViewport] = useState({
-    width: 800,
-    height: 400,
-    latitude: 51.5074,
-    longitude: -0.1039,
+    width: 500,
+    height: 300,
+    latitude: parseFloat(((props.route.response.route[0].waypoint[0].mappedPosition.latitude + props.route.response.route[0].waypoint[1].mappedPosition.latitude) / 2).toFixed(6)),
+    longitude: parseFloat(((props.route.response.route[0].waypoint[0].mappedPosition.longitude + props.route.response.route[0].waypoint[1].mappedPosition.longitude) / 2).toFixed(6)),
     zoom: 11
   })
 
@@ -71,6 +72,9 @@ export default function Map(props) {
 
 
 
+  if (!props) {
+    return null
+  }
 
 
 

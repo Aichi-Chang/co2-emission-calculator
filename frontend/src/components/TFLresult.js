@@ -18,6 +18,7 @@ export default function TFLresult(props) {
   const [mode, setMode] = useState({ value: 'publicTransportTimeTable' })
   const [vehicle, setVehicle] = useState({ value: '&vehicletype=gasoline%2C5.5' }) 
   const [instruction, setInstruction] = useState([])
+  const [expanded, setExpanded] = useState(false)
 
   
   // The argument passed to useState is the initial state much like setting state in constructor for a class component 
@@ -25,7 +26,6 @@ export default function TFLresult(props) {
   // https://stackoverflow.com/questions/54865764/react-usestate-does-not-reload-state-from-props
   useEffect(() => { 
 
-    // console.log(props.latLng ? props.latLng.result[0].result.latitude : 'waiting...')
     // Setting initial state based on prop when using useState Hook
     // https://stackoverflow.com/questions/56574442/setting-initial-state-based-on-prop-when-using-usestate-hook
 
@@ -41,7 +41,7 @@ export default function TFLresult(props) {
       displayTime()
     }, 60000)
 
-  }, [props])
+  }, [props, mode, vehicle])
 
 
   // Should I use one or many useEffect in component?
@@ -83,6 +83,23 @@ export default function TFLresult(props) {
   function handleChange2(e) {
     setVehicle({ value: e.target.value })
   }
+
+  function expandText() {
+    setExpanded(true)
+  }
+
+  function getMoreText() {
+    if (expanded) {
+      return <div>
+        {instruction.map((p, i) => {
+          return <p key={i} className='black avenir'>{p}</p>
+        })}
+      </div>
+    } else {
+      return null
+    }
+  }
+
     
  
   if (!route) {
@@ -90,9 +107,9 @@ export default function TFLresult(props) {
   }
 
   return (
-    <div className='mt4-l mt3 mw9-l mw5 flex flex-column '>
+    <div className='mt4-l mt3 mw8-l mw5 flex flex-column justify-center'>
 
-      <select value={mode.value} onChange={(e) => handleChange(e)}>
+      <select className='mw6-l' value={mode.value} onChange={(e) => handleChange(e)}>
         <option disabled>Travel Mode</option>
         <option value='publicTransportTimeTable'>Public Transport</option>
         <option value='car'>Drive</option>
@@ -100,25 +117,12 @@ export default function TFLresult(props) {
       </select>
 
 
-      {mode.value === 'car' && <select value={vehicle.value} onChange={(e) => handleChange2(e)}>
+      {mode.value === 'car' && <select className='mw6-l' value={vehicle.value} onChange={(e) => handleChange2(e)}>
         <option disabled>Vehicle Type</option>
         <option value='&vehicletype=gasoline%2C5.5'>Gasoline Engine</option>
         <option value='&vehicletype=diesel%2C5.5'>Diesel Engine</option>
         <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
       </select> }
-
-      <div>Depart at: {time.time}</div>
-
-      <div>
-        <div>
-          {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM 
-        </div>
-        <div> 
-          {Math.round(route.response.route[0].summary.baseTime / 60)} Min
-        </div>
-      </div>
-
-      <div>{carb} Kilontons</div>
 
       {Auth.isAuthenticated() && <AddToFav 
         route={route}
@@ -126,12 +130,32 @@ export default function TFLresult(props) {
         carb={carb}
         instruction={instruction}
       />}
-      
+
+    
+      <div>       
+        <p className='black avenir'>Depart at -  {time.time}</p>
+
+        <p className='black avenir'>
+          Arrive at - {moment().add(`${Math.round(route.response.route[0].summary.baseTime / 60)}`, 'm').format('LLL')}
+        </p>
+
+        <p className='black avenir'>
+        The total journey is {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM
+        </p>
+
+        {carb === 0 && <h2>There will be <span className='gold'>NO</span> CO2 emission created. Hooray!</h2>}
+        {carb !== 0 && <h2>It will create <span className='gold'>{carb}</span> Kilontons</h2>}
+      </div>
+
+
       <Map route={route} />
 
-      <div>{instruction.map((p, i) => {
-        return <p key={i}>{p}</p>
-      })}</div>
+
+      <div className='mt2 mb6'>
+        <a className='link f3 black' href='#' onClick={() => expandText()}>{!expanded ? 'Get Directions' : null}</a>
+        {getMoreText()}
+      </div>
+    
     </div>
   )
 }

@@ -8,6 +8,8 @@ $nav-font: 'Archivo', sans-serif;
 $main-color:  rgb(30, 43, 216);
 $primary-color: rgb(216, 240, 231);
 $gray: rgb(128, 128, 128);
+$dark-green: rgb(144, 179, 145);
+$purple: #E3D6F4;
 
 * {
   box-sizing: border-box;
@@ -32,7 +34,7 @@ body {
   display: inline-block;
   font-size: 16px;
   &:hover {
-    background-color: #fff;
+    background-color: $dark-green;
     transition: 0.3s;
   }
 }
@@ -57,3 +59,11 @@ input {
   @include buttonStyle;
 }
 
+
+.purple {
+  color: $purple;
+}
+
+.dark-green {
+  color: $dark-green;
+}

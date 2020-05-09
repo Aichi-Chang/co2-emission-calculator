@@ -45,8 +45,7 @@ export default function Postcodes() {
   return (
     <div className='flex flex-column items-center'>
 
-      <div className='mt6-l mt5 mr3 ml3 mw6 mw9-l'>
-        {Auth.isAuthenticated() && <h2>Hello, {Auth.getUser().username}!</h2>}
+      <div className='mt5-l mt4 mr3 ml3 mw6 mw9-l'>
 
         <h2 className='mt5 '>Please Enter the Postcodes:</h2>
 
@@ -55,14 +54,14 @@ export default function Postcodes() {
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className='bb input ma3'
+            className='bb input ma3 dark-green'
             placeholder = 'From...'
             required = {true}
             name = 'postcodeFrom'
             onChange={(elem) => handleChang(elem)}
           />
           <input
-            className='bb input ma3'
+            className='bb input ma3 dark-green'
             placeholder = 'To...'
             required = {true}
             name= 'postcodeTo'

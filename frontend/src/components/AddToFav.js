@@ -97,7 +97,11 @@ export default function AddToFav(props) {
 
   return (
     <div> 
-      <button onClick={(e) => handleSubmit(e)}>Add to Favorite</button>
+      <button 
+        onClick={(e) => handleSubmit(e)}
+        className='pointer button grow mt4'
+      >Add This Route to Dashboard</button>
+      
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
