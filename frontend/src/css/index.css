@@ -60,16 +60,6 @@ input:focus::placeholder {
   transition: 0.3s;
 }
 
-.show-button-position {
-  right: 300px;
-  top: 220px;
-}
-
-.show-button-position-2 {
-  right: 300px;
-  top: 300px;
-}
-
 .purple {
   color: #E3D6F4;
 }
@@ -80,6 +70,18 @@ input:focus::placeholder {
 
 .blue-color {
   color: #1e2bd8;
+}
+
+.border-style {
+  outline: 0;
+  border-top: 1px solid #1e2bd8;
+  padding: 5px;
+}
+
+.select-style {
+  outline: 0;
+  border: 1px solid black;
+  padding: 7px;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -14,17 +14,13 @@ export default function Nav() {
   }
 
   return (
-    <div className='flex flex-wrap-l items-center-l justify-between-l flex-column-reverse-m z-1'>
+    <div className='vw-100'>
 
-      <div className='black'>
-        {Auth.isAuthenticated() && <h3 className='ma3-l ma2'>Hello, {Auth.getUser().username}</h3>}
-      </div>
-
-      <div className=''>
+      <div className='flex flex-row justify-end'>
         {Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2' onClick={() => handleLogout()}>Log Out</button>}
-        {!Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link className='link black' to='/login'>Log in</Link></button>}
-        {!Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link className='link black'to='/register'>Sign Up</Link></button>}
-        {Auth.isAuthenticated() && <button className='pointer button grow ma3-l ma2'><Link className='link black' to='/user'>Dashboard</Link></button>}
+        {!Auth.isAuthenticated() && <Link className='link black' to='/login'><button className='pointer button grow ma3-l ma2'>Log in</button></Link>}
+        {!Auth.isAuthenticated() && <Link className='link black'to='/register'><button className='pointer button grow ma3-l ma2'>Sign Up</button></Link>}
+        {Auth.isAuthenticated() && <Link className='link black' to='/user'><button className='pointer button grow ma3-l ma2'>Dashboard</button></Link>}
       </div>
 
 

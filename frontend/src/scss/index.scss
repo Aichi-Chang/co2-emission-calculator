@@ -65,16 +65,6 @@ input {
   padding: 10px 20px;
 }
 
-.show-button-position {
-  right: 300px;
-  top: 220px;
-}
-
-.show-button-position-2 {
-  right: 300px;
-  top: 300px;
-}
-
 
 .purple {
   color: $purple;
@@ -86,4 +76,16 @@ input {
 
 .blue-color {
   color: $main-color;
+}
+
+.border-style {
+  outline: 0;
+  border-top: 1px solid $main-color;
+  padding: 5px;
+}
+
+.select-style {
+  outline: 0;
+  border: 1px solid black;
+  padding: 7px;
 }

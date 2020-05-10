@@ -97,7 +97,7 @@ export default function TFLresult(props) {
     if (expanded) {
       return <div>
         {instruction.map((p, i) => {
-          return <p key={i} className='black avenir mw6-l mw3'>
+          return <p key={i} className='black avenir mw6'>
             ➡️{p}
           </p>
         })}
@@ -110,26 +110,56 @@ export default function TFLresult(props) {
     
  
   if (!route) {
-    return <div className='mt3'>That's see how much CO2 emissions the route creats 👣</div>
+    return <div className='mt3'>That's see how much CO2 emissions the route creates 👣</div>
   }
 
   return (
-    <div className='mt4-l mt3 mw8-l mw5 flex flex-column justify-center'>
+    <div className='flex flex-column items-center vw-100'>
 
-      <select className='mw6-l' value={mode.value} onChange={(e) => handleChange(e)}>
-        <option disabled>Travel Mode</option>
-        <option value='publicTransportTimeTable'>Public Transport</option>
-        <option value='car'>Drive</option>
-        <option value='bicycle'>Cycle</option>
-      </select>
+      <div className='pa6 border-style w-100-l w-70'></div>
 
 
-      {mode.value === 'car' && <select className='mw6-l' value={vehicle.value} onChange={(e) => handleChange2(e)}>
-        <option disabled>Vehicle Type</option>
-        <option value='&vehicletype=gasoline%2C5.5'>Gasoline Engine</option>
-        <option value='&vehicletype=diesel%2C5.5'>Diesel Engine</option>
-        <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
-      </select> }
+      <div className='mt4-l mt3 flex mw9 flex-column justify-center'>
+
+        <select className=' select-style' value={mode.value} onChange={(e) => handleChange(e)}>
+          <option disabled>Travel Mode</option>
+          <option value='publicTransportTimeTable'>Public Transport</option>
+          <option value='car'>Drive</option>
+          <option value='bicycle'>Cycle</option>
+        </select>
+
+        {mode.value === 'car' && <select className=' select-style mt2' value={vehicle.value} onChange={(e) => handleChange2(e)}>
+          <option disabled>Vehicle Type</option>
+          <option value='&vehicletype=gasoline%2C5.5'>Gasoline Engine</option>
+          <option value='&vehicletype=diesel%2C5.5'>Diesel Engine</option>
+          <option value='&vehicletype=electric%2C5.5'>Electric Engine</option>
+        </select> }
+
+        <div>       
+          <p className='black avenir ba pa2'>Depart at -  {time.time}</p>
+
+          <p className='black avenir ba pa2'>
+            Arrive at - {moment().add(`${Math.round(route.response.route[0].summary.baseTime / 60)}`, 'm').format('LLL')}
+          </p>
+
+          <p className='black avenir ba pa2'>
+          The total journey is {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM
+          </p>
+
+          {carb === 0 && <h2 className='mw5 '>There will be <span className='gold'>NO</span> CO2 emission created! ✌️</h2>}
+          {carb !== 0 && <h2 className='mw5 '>It will create <span className='gold'>{carb}</span> Kilontons</h2>}
+        </div>
+
+        <div className='mb2'>
+          <a className='link f3 bb mb2 black' href='#' onClick={() => expandText()}>{!expanded ? 'Get Direction' : 'Hide Direction'}</a>
+          {getMoreText()}
+        </div>
+      
+      </div>
+
+      <div className='mb5 mt4'>
+        <Map route={route} />
+      </div>
 
       {Auth.isAuthenticated() && <AddToFav 
         route={route}
@@ -138,35 +168,6 @@ export default function TFLresult(props) {
         instruction={instruction}
       />}
 
-    
-      <div>       
-        <p className='black avenir ba pa2'>Depart at -  {time.time}</p>
-
-        <p className='black avenir ba pa2'>
-          Arrive at - {moment().add(`${Math.round(route.response.route[0].summary.baseTime / 60)}`, 'm').format('LLL')}
-        </p>
-
-        <p className='black avenir ba pa2'>
-        The total journey is {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM
-        </p>
-
-        {carb === 0 && <h2>There will be <span className='gold'>NO</span> CO2 emission created. Hooray!</h2>}
-        {carb !== 0 && <h2>It will create <span className='gold'>{carb}</span> Kilontons</h2>}
-      </div>
-
-      <div className='mb3'>
-        <a className='link f3 bb mb2 blue-color' href='#' onClick={() => expandText()}>{!expanded ? 'Get Direction' : 'Hide Direction'}</a>
-        {getMoreText()}
-      </div>
-
-      <div className='mb6'>
-        <Map route={route} />
-      </div>
-      
-
-
-      
-    
     </div>
   )
 }

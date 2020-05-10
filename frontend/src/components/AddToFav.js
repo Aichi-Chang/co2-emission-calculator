@@ -99,12 +99,12 @@ export default function AddToFav(props) {
     <div> 
       <button 
         onClick={(e) => handleSubmit(e)}
-        className='pointer button grow mt4'
-      >Add This Route to Dashboard</button>
+        className='pointer button grow mb6'
+      >Add Route to Dashboard</button>
       
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'left'
         }}
         open={open}

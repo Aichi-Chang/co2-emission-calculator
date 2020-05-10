@@ -69,7 +69,7 @@ class CycleRoute(models.Model):
     arriveTime = models.CharField(max_length=50)
     duation = models.CharField(max_length=50)
     direction = models.TextField()
-    instruction = ArrayField(models.TextField())
+    instruction = models.TextField()
     departLon = models.FloatField()
     departLat = models.FloatField()
     arrivalLon = models.FloatField()

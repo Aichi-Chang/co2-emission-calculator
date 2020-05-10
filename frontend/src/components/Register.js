@@ -5,7 +5,7 @@ import axios from 'axios'
 export default function Register(props) {
 
 
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   const [data, setData] = useState({
     username: '',
@@ -41,22 +41,22 @@ export default function Register(props) {
   }
 
   function handleTick () {
-    if (show === true) {
-      setShow(false)
-    } else {
+    if (!show) {
       setShow(true)
+    } else {
+      setShow(false)
     }
   }
 
   return (
-    <div className='relative vh-100 wh-100'>
+    <div className='vh-100 wh-100'>
       <div className='flex items-center justify-center'>
         <form 
-          className='flex flex-column mt6-l mt4 w-40-l'
+          className='flex flex-column mt6-l mt5 w-40-l w-70'
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className='ma3-l ma2'
+            className='ma3'
             onChange={(e) => handleChange(e)}
             type='text'
             name='username'
@@ -65,7 +65,7 @@ export default function Register(props) {
           />
           {errors.message && <small>{errors.message.username}</small>}
           <input
-            className='ma3-l ma2'
+            className='ma3'
             onChange={(e) => handleChange(e)}
             type='email'
             name='email'
@@ -74,33 +74,39 @@ export default function Register(props) {
           />
           {errors.message && <small>{errors.message.email}</small>}
           <input
-            className='ma3-l ma2'
+            className='ma3'
             onChange={(e) => handleChange(e)}
-            type={show ? 'password' : 'text'}
+            type={!show ? 'password' : 'text'}
             name='password'
             required={true}
             placeholder='Password'
           />
           {errors.message && <small>{errors.message.password}</small>}
           <input
-            className='ma3-l ma2'
+            className='ma3'
             onChange={(e) => handleChange(e)}
-            type={show ? 'password' : 'text'}
+            type={!show ? 'password' : 'text'}
             name='password_confirmation'
             required={true}
             placeholder='Confirm Password'
           />
           {errors.message && <small>{errors.message.password_confirmation}</small>}
-          <button className='ma3-l ma2 pointer button grow'>Create Account</button>
+          
+          <a
+            id=''
+            className='pointer small-button grow ma3 w-30'
+            onClick={() => handleTick()}
+          >
+            {!show ? 'Show Password' : 'Hide Password'}
+          </a>
+          
+          <button className='ma3 pointer button grow'>
+            Create Account
+          </button>
+        
+        
         </form>
       </div>
-   
-      <button 
-        className='absolute pointer small-button grow show-button-position-2'
-        onClick={() => handleTick()}
-      >
-        Show Password
-      </button>
     </div>
   )
 }
