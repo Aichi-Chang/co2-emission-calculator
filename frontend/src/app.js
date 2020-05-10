@@ -18,7 +18,6 @@ import SingleRoute from './components/SingleRoute'
 
 const App = () => {
 
-
   return <div>
 
     <HashRouter>
