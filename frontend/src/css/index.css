@@ -42,12 +42,44 @@ input:focus::placeholder {
   transition: 0.3s;
 }
 
+.small-button {
+  font-family: "Archivo", sans-serif;
+  background-color: #d8f0e7;
+  border: none;
+  color: black;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-size: 10px;
+  padding: 10px 20px;
+}
+.small-button:hover {
+  background-color: #90b391;
+  transition: 0.3s;
+}
+
+.show-button-position {
+  right: 300px;
+  top: 220px;
+}
+
+.show-button-position-2 {
+  right: 300px;
+  top: 300px;
+}
+
 .purple {
   color: #E3D6F4;
 }
 
 .dark-green {
   color: #90b391;
+}
+
+.blue-color {
+  color: #1e2bd8;
 }
 
 /*# sourceMappingURL=index.css.map */

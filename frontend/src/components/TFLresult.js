@@ -85,14 +85,21 @@ export default function TFLresult(props) {
   }
 
   function expandText() {
-    setExpanded(true)
+    if (!expanded) {
+      setExpanded(true)
+    } else {
+      setExpanded(false)
+    }
+    
   }
 
   function getMoreText() {
     if (expanded) {
       return <div>
         {instruction.map((p, i) => {
-          return <p key={i} className='black avenir'>{p}</p>
+          return <p key={i} className='black avenir mw6-l mw3'>
+            ➡️{p}
+          </p>
         })}
       </div>
     } else {
@@ -133,13 +140,13 @@ export default function TFLresult(props) {
 
     
       <div>       
-        <p className='black avenir'>Depart at -  {time.time}</p>
+        <p className='black avenir ba pa2'>Depart at -  {time.time}</p>
 
-        <p className='black avenir'>
+        <p className='black avenir ba pa2'>
           Arrive at - {moment().add(`${Math.round(route.response.route[0].summary.baseTime / 60)}`, 'm').format('LLL')}
         </p>
 
-        <p className='black avenir'>
+        <p className='black avenir ba pa2'>
         The total journey is {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM
         </p>
 
@@ -147,14 +154,18 @@ export default function TFLresult(props) {
         {carb !== 0 && <h2>It will create <span className='gold'>{carb}</span> Kilontons</h2>}
       </div>
 
-
-      <Map route={route} />
-
-
-      <div className='mt2 mb6'>
-        <a className='link f3 black' href='#' onClick={() => expandText()}>{!expanded ? 'Get Directions' : null}</a>
+      <div className='mb3'>
+        <a className='link f3 bb mb2 blue-color' href='#' onClick={() => expandText()}>{!expanded ? 'Get Direction' : 'Hide Direction'}</a>
         {getMoreText()}
       </div>
+
+      <div className='mb6'>
+        <Map route={route} />
+      </div>
+      
+
+
+      
     
     </div>
   )

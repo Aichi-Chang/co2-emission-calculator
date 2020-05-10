@@ -49,43 +49,56 @@ export default function Register(props) {
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          onChange={(e) => handleChange(e)}
-          type='text'
-          name='username'
-          required={true}
-          placeholder='User Name'
-        />
-        {errors.message && <small>{errors.message.username}</small>}
-        <input
-          onChange={(e) => handleChange(e)}
-          type='email'
-          name='email'
-          required={true}
-          placeholder='Email'
-        />
-        {errors.message && <small>{errors.message.email}</small>}
-        <input
-          onChange={(e) => handleChange(e)}
-          type={show ? 'password' : 'text'}
-          name='password'
-          required={true}
-          placeholder='Password'
-        />
-        {errors.message && <small>{errors.message.password}</small>}
-        <input
-          onChange={(e) => handleChange(e)}
-          type={show ? 'password' : 'text'}
-          name='password_confirmation'
-          required={true}
-          placeholder='Confirm Password'
-        />
-        {errors.message && <small>{errors.message.password_confirmation}</small>}
-        <button>Create Account</button>
-      </form>
-      <button onClick={() => handleTick()}>
+    <div className='relative vh-100 wh-100'>
+      <div className='flex items-center justify-center'>
+        <form 
+          className='flex flex-column mt6-l mt4 w-40-l'
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type='text'
+            name='username'
+            required={true}
+            placeholder='User Name'
+          />
+          {errors.message && <small>{errors.message.username}</small>}
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type='email'
+            name='email'
+            required={true}
+            placeholder='Email'
+          />
+          {errors.message && <small>{errors.message.email}</small>}
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type={show ? 'password' : 'text'}
+            name='password'
+            required={true}
+            placeholder='Password'
+          />
+          {errors.message && <small>{errors.message.password}</small>}
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type={show ? 'password' : 'text'}
+            name='password_confirmation'
+            required={true}
+            placeholder='Confirm Password'
+          />
+          {errors.message && <small>{errors.message.password_confirmation}</small>}
+          <button className='ma3-l ma2 pointer button grow'>Create Account</button>
+        </form>
+      </div>
+   
+      <button 
+        className='absolute pointer small-button grow show-button-position-2'
+        onClick={() => handleTick()}
+      >
         Show Password
       </button>
     </div>

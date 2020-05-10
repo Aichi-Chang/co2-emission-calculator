@@ -20,8 +20,12 @@ export default function Map(props) {
     longitude: parseFloat(((props.route.response.route[0].waypoint[0].mappedPosition.longitude + props.route.response.route[0].waypoint[1].mappedPosition.longitude) / 2).toFixed(6)),
     zoom: 11
   })
-
   const [cordi, setCordi] = useState([])
+  const [infoHomeS, setInfoHomeS] = useState(props.route.response.route[0].waypoint[0].mappedRoadName)
+  const [infoHomeE, setInfoHomeE] = useState(props.route.response.route[0].waypoint[1].mappedRoadName)
+  const [singleInfoS, setSingleInfoS] = useState(props.singleData ? props.singleData.depart : null)
+  const [singleInfoE, setSingleInfoE] = useState(props.singleData ? props.singleData.arrive : null)
+
 
 
   useEffect(() => {
@@ -49,12 +53,9 @@ export default function Map(props) {
     } else {
 
       setCordi([...props.singleData.maneuverLon, ...props.singleData.maneuverLat])
-      
     }
 
   }, [props])
-
-
 
 
   const coordinateArr = []
@@ -72,15 +73,69 @@ export default function Map(props) {
 
 
 
+
+  function renderPopupHomeS() {
+    return (infoHomeS && (
+      <Popup 
+        longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} 
+        latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude}
+        closeOnClick={false}
+        onClose={() => setInfoHomeS(null)} 
+      >
+        {infoHomeS}
+      </Popup>
+    )) 
+  }
+
+  function renderPopupHomeE() {
+    return (infoHomeE && (
+      <Popup 
+        longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} 
+        latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude}
+        closeOnClick={false}
+        onClose={() => setInfoHomeE(null)}
+      >
+        {infoHomeE}
+      </Popup>
+    ))
+  }
+
+
+  function renderPopupSingleS() {
+    return (
+      props.singleInfoS && (
+        <Popup
+          longitude={props.singleData.departLon}
+          latitude={props.singleData.departLat}
+          closeOnClick={false}
+          onClose={() => setSingleInfoS(null)} 
+        >
+          {singleInfoS}
+        </Popup>
+      ))
+  } 
+
+  function renderPopupSingleE() {
+    return (
+      props.singleInfoE && (
+        <Popup
+          longitude={props.singleData.arrivalLon}
+          latitude={props.singleData.arrivalLat}
+          closeOnClick={false}
+          onClose={() => setSingleInfoE(null)} 
+        >
+          {singleInfoE}
+        </Popup>
+      ))
+  }
+          
+
+
   if (!props) {
     return null
   }
 
-
-
   return (
-
-
     <div>
       <MapGL
         {...viewport}
@@ -98,41 +153,15 @@ export default function Map(props) {
             'line-cap': 'round'
           }}
           paint={{
-            'line-color': '#a83a32',
+            'line-color': '#1e2bd8',
             'line-width': 5
           }}
         />
-        {props.route && 
-        <div>
-          <Popup 
-            longitude={props.route.response.route[0].waypoint[0].mappedPosition.longitude} 
-            latitude={props.route.response.route[0].waypoint[0].mappedPosition.latitude} >
-            {props.route.response.route[0].waypoint[0].mappedRoadName}
-          </Popup>
-          <Popup 
-            longitude={props.route.response.route[0].waypoint[1].mappedPosition.longitude} 
-            latitude={props.route.response.route[0].waypoint[1].mappedPosition.latitude} >
-            {props.route.response.route[0].waypoint[1].mappedRoadName}
-          </Popup>
-        </div>}
 
-        {props.singleData && 
-          <div>
-            <Popup
-              longitude={props.singleData.departLon}
-              latitude={props.singleData.departLat}
-            >
-              {props.singleData.depart}
-            </Popup>
-
-            <Popup
-              longitude={props.singleData.arrivalLon}
-              latitude={props.singleData.arrivalLat}
-            >
-              {props.singleData.arrive}
-            </Popup>
-          </div>
-        }
+        {renderPopupHomeS()}
+        {renderPopupHomeE()}
+        {renderPopupSingleS()}
+        {renderPopupSingleE()}
 
       </MapGL> 
     </div>

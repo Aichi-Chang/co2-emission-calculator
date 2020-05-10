@@ -5,10 +5,10 @@
 $primary-font: 'Cabin', sans-serif;
 $secondery-font: 'Cormorant Garamond', serif;
 $nav-font: 'Archivo', sans-serif;
-$main-color:  rgb(30, 43, 216);
+$main-color:  #1e2bd8;
 $primary-color: rgb(216, 240, 231);
 $gray: rgb(128, 128, 128);
-$dark-green: rgb(144, 179, 145);
+$dark-green: #90b391;
 $purple: #E3D6F4;
 
 * {
@@ -59,6 +59,22 @@ input {
   @include buttonStyle;
 }
 
+.small-button {
+  @include buttonStyle;
+  font-size: 10px;
+  padding: 10px 20px;
+}
+
+.show-button-position {
+  right: 300px;
+  top: 220px;
+}
+
+.show-button-position-2 {
+  right: 300px;
+  top: 300px;
+}
+
 
 .purple {
   color: $purple;
@@ -66,4 +82,8 @@ input {
 
 .dark-green {
   color: $dark-green;
+}
+
+.blue-color {
+  color: $main-color;
 }

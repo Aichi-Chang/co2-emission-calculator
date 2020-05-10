@@ -46,27 +46,41 @@ export default function Login(props) {
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          onChange={(e) => handleChange(e)}
-          type='email'
-          name='email'
-          required={true}
-          placeholder='Email'
-        />
-        {errors.message && <small>{errors.message.email}</small>}
-        <input
-          onChange={(e) => handleChange(e)}
-          type={show ? 'password' : 'text'}
-          name='password'
-          required={true}
-          placeholder='Password'
-        />
-        {errors.message && <small>{errors.message.password}</small>}
-        <button>Log In</button>
-      </form>
-      <button onClick={() => handleTick()}>Show Password</button>
+    <div className='relative vh-100 wh-100'>
+      <div className='flex items-center justify-center'>
+        <form 
+          className='flex flex-column mt6-l mt4 w-40-l'
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type='email'
+            name='email'
+            required={true}
+            placeholder='Email'
+          />
+          {errors.message && <small>{errors.message.email}</small>}
+          <input
+            className='ma3-l ma2'
+            onChange={(e) => handleChange(e)}
+            type={show ? 'password' : 'text'}
+            name='password'
+            required={true}
+            placeholder='Password'
+          />
+          {errors.message && <small>{errors.message.password}</small>}
+          <button
+            className='ma3-l ma2 pointer button grow'
+          >
+            Log In
+          </button>
+        </form>
+      </div>
+      <button 
+        className='absolute pointer small-button grow show-button-position'
+        onClick={() => handleTick()}
+      >Show Password</button>
     </div>
   )
 }
