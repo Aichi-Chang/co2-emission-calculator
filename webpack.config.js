@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV === 'production' ? (
 )
 
 module.exports = {
-  entry: [__dirname + '/frontend/src/app.js', __dirname + '/frontend/src/scss/index.scss'],
+  entry: './src/app.js',
   context: path.resolve(__dirname, 'frontend'),
   output: {
     filename: 'bundle.js',
