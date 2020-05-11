@@ -24,7 +24,7 @@ module.exports = {
       { test: /\.s(a|c)ss$/, loader: ['style-loader', 'css-loader', 'sass-loader'] },
       { test: /\.woff2?$/, loader: 'file-loader' },
       { test: /\.(jpg|png|gif)$/, loader: 'file-loader' },
-      { test: /\.svg$/, use: ['svg-url-loader', 'url-loader'] }   
+      { test: /\.svg$/, use: ['svg-url-loader', 'url-loader'] }      
     ]
   },
   devServer: {
@@ -36,7 +36,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:4000',
         secure: false,
         changeOrigin: true
       }

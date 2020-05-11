@@ -36,12 +36,12 @@
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "file-loader": "^6.0.0",
-    "html-webpack-plugin": "^4.0.4",
+    "html-webpack-plugin": "^4.3.0",
     "jest": "^25.3.0",
     "jsonwebtoken": "^8.5.1",
     "mapbox-gl": "^1.10.0",
     "moment": "^2.24.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
     "react": "^16.13.1",
     "react-calendar": "^3.0.1",
@@ -57,6 +57,6 @@
     "url-loader": "^4.0.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   }
 }
