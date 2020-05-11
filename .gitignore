@@ -1,2 +1,3 @@
 frontend/dist
 .env
+node_modules
