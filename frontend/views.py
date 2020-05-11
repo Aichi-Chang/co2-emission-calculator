@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 # The Home view, opens the index.html file located in the dist folder and sends it back to the client.
 class Home(View):
 
-    def get(self):
+    def get(self, _request):
         with open(os.path.join(os.path.dirname(__file__), 'dist', 'index.html')) as file:
             return HttpResponse(file.read())
 
@@ -18,7 +18,7 @@ class Home(View):
 # If found it will send it back to the client, if not a 404 response will be sent.
 class Assets(View):
 
-    def get(self, filename):
+    def get(self, _request, filename):
         path = os.path.join(os.path.dirname(__file__), 'dist', filename)
    
         if os.path.isfile(path):
