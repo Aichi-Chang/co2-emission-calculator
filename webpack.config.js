@@ -13,8 +13,7 @@ module.exports = {
   context: path.resolve(__dirname, 'frontend'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'frontend/dist'),
-    publicPath: '/'
+    path: path.resolve(__dirname, 'frontend/dist')
   },
   devtool: 'source-maps',
   module: {
@@ -36,7 +35,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:8000',
         secure: false,
         changeOrigin: true
       }
@@ -47,8 +46,7 @@ module.exports = {
     env,
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      filename: 'index.html',
-      inject: 'body'
+      filename: 'index.html'
     })
   ],
   node: {
