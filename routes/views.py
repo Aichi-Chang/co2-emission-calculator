@@ -31,7 +31,7 @@ class PublicListView(generics.ListCreateAPIView):
     queryset = PublicRoute.objects.all()
     serializer_class = NestedPublicRouteSerializer
 
-    def get_queryset(self):
+    def get_queryset(self, _request):
         return PublicRoute.objects.filter(traveler=self.request.user)
 
     # def get(self, request):
@@ -59,13 +59,13 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
     #     except PublicRoute.DoesNotExist:
     #         raise Http404
 
-    def get(self, _request, pk, format=None):
+    def get(self, _request, pk, format=None, **kwargs):
         publicRoute = PublicRoute.objects.get(pk=pk)
         serialized_with_user = NestedPublicRouteSerializer(publicRoute)
         return Response(serialized_with_user.data)
 
 
-    def put(self, request, pk, format=None):
+    def put(self, request, pk, format=None, **kwargs):
         request.data['traveler'] = request.user.id
         publicRoute = PublicRoute.objects.get(pk=pk)
         if publicRoute.traveler.id != request.user.id:
@@ -79,7 +79,7 @@ class PublicSingleView(generics.RetrieveUpdateDestroyAPIView):
         return Response(updated_serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
             
 
-    def delete(self, request, pk, format=None):
+    def delete(self, request, pk, format=None, **kwargs):
         publicRoute = PublicRoute.objects.get(pk=pk)
         if publicRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -96,7 +96,7 @@ class DriveListView(generics.ListCreateAPIView):
     queryset = DriveRoute.objects.all()
     serializer_class = NestedDriveRouteSerializer
 
-    def get_queryset(self):
+    def get_queryset(self, _request):
         return DriveRoute.objects.filter(traveler=self.request.user)
 
     # def get(self, request):
@@ -104,7 +104,7 @@ class DriveListView(generics.ListCreateAPIView):
     #     serialized_drive = NestedDriveRouteSerializer(driveRoute, many=True)
     #     return Response(serialized_drive.data)
 
-    def post(self, request, format=None):
+    def post(self, request, format=None, **kwargs):
         request.data['traveler'] = request.user.id
         serializer = DriveRouteSerializer(data=request.data)
         if serializer.is_valid():
@@ -117,13 +117,13 @@ class DriveSingleView(APIView):
 
     permission_classes = (IsAuthenticated, )
     
-    def get(self, _request, pk, format=None):
+    def get(self, _request, pk, format=None, **kwargs):
         driveRoute = DriveRoute.objects.get(pk=pk)
         serialized_with_user = NestedDriveRouteSerializer(driveRoute)
         return Response(serialized_with_user.data)
 
 
-    def put(self, request, pk, format=None):
+    def put(self, request, pk, format=None, **kwargs):
         request.data['traveler'] = request.user.id
         driveRoute = DriveRoute.objects.get(pk=pk)
         if driveRoute.traveler.id != request.user.id:
@@ -137,7 +137,7 @@ class DriveSingleView(APIView):
         return Response(updated_serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
             
 
-    def delete(self, request, pk, format=None):
+    def delete(self, request, pk, format=None, **kwargs):
         driveRoute = DriveRoute.objects.get(pk=pk)
         if driveRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -154,10 +154,10 @@ class CycleListView(generics.ListCreateAPIView):
     queryset = CycleRoute.objects.all()
     serializer_class = NestedCycleRouteSerializer
 
-    def get_queryset(self):
+    def get_queryset(self, _request):
         return CycleRoute.objects.filter(traveler=self.request.user)
 
-    def post(self, request, format=None):
+    def post(self, request, format=None, **kwargs):
         request.data['traveler'] = request.user.id
         serializer = CycleRouteSerializer(data=request.data)
         if serializer.is_valid():
@@ -170,13 +170,13 @@ class CycleSingleView(APIView):
 
     permission_classes = (IsAuthenticated, )
     
-    def get(self, _request, pk, format=None):
+    def get(self, _request, pk, format=None, **kwargs):
         cycleRoute = CycleRoute.objects.get(pk=pk)
         serialized_with_user = NestedCycleRouteSerializer(cycleRoute)
         return Response(serialized_with_user.data)
 
 
-    def put(self, request, pk, format=None):
+    def put(self, request, pk, format=None, **kwargs):
         request.data['traveler'] = request.user.id
         cycleRoute = CycleRoute.objects.get(pk=pk)
         if cycleRoute.traveler.id != request.user.id:
@@ -190,7 +190,7 @@ class CycleSingleView(APIView):
         return Response(updated_serializer.errors, status=status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE)
             
 
-    def delete(self, request, pk, format=None):
+    def delete(self, request, pk, format=None, **kwargs):
         cycleRoute = CycleRoute.objects.get(pk=pk)
         if cycleRoute.traveler.id != request.user.id:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -206,7 +206,7 @@ class TravelerSingleView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request):
+    def get(self, request, _pk):
         traveler = User.objects.filter(id=request.user.id)
         serialized_with_all_routes = NestedTravelerSerializer(traveler, many=True)
 
