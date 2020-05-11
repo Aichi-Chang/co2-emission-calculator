@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "webpack --config webpack.config.js --mode='production'",
+    "build": "webpack -p",
     "serve:back": "python manage.py runserver",
     "serve:front": "webpack-dev-server",
     "sass": "sass --watch frontend/src/scss/index.scss:frontend/src/css/index.css"
