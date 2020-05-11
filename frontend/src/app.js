@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Switch, Route } from 'react-router-dom'
-import { Link } from 'react-dom'
 
 import './css/index.css'
 import 'tachyons'
 
-import Auth from './lib/Auth'
 
 import Register from './components/Register'
 import Login from './components/Login'
