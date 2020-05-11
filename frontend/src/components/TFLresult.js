@@ -33,7 +33,7 @@ export default function TFLresult(props) {
     // `https://api.tfl.gov.uk/journey/journeyresults/${props.latLng.result[0].result.latitude},${props.latLng.result[0].result.longitude}/to/${props.latLng.result[1].result.latitude},${props.latLng.result[1].result.longitude}?nationalsearch=false&date=${time.getFullYear()}${time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1}${time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()}&time=${time.getUTCHours() + 1 < 10 ? '0' + (time.getUTCHours() + 1) : time.getUTCHours() + 1}${time.getUTCMinutes() < 10 ? '0' + (time.getUTCMinutes()) : time.getUTCMinutes()}&timeis=departing&journeyPreference=LeastInterchange&mode=${mode.value}`)
     
     if (props.latLng) {
-      axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?waypoint0=${props.latLng.result[0].result.latitude}%2C${props.latLng.result[0].result.longitude}&waypoint1=${props.latLng.result[1].result.latitude}%2C${props.latLng.result[1].result.longitude}&mode=fastest;${mode.value}${mode.value === 'car' ? vehicle.value : ''}&departure=now&apiKey=vqwt8WCBsecZgJJBRcIY4yJAeWx9rRtfifIQG8u67HY`)
+      axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?waypoint0=${props.latLng.result[0].result ? props.latLng.result[0].result.latitude : null}%2C${props.latLng.result[0].result ? props.latLng.result[0].result.longitude : null}&waypoint1=${props.latLng.result[1].result ? props.latLng.result[1].result.latitude : null}%2C${props.latLng.result[1].result ? props.latLng.result[1].result.longitude : null}&mode=fastest;${mode.value}${mode.value === 'car' ? vehicle.value : ''}&departure=now&apiKey=vqwt8WCBsecZgJJBRcIY4yJAeWx9rRtfifIQG8u67HY`)
         .then(res => setRoute(res.data))
     }
 
@@ -136,13 +136,13 @@ export default function TFLresult(props) {
         </select> }
 
         <div>       
-          <p className='black avenir ba pa2'>Depart at -  {time.time}</p>
+          <p className='black avenir ba pa2 bg-white'>Depart at -  {time.time}</p>
 
-          <p className='black avenir ba pa2'>
+          <p className='black avenir ba pa2 bg-white'>
             Arrive at - {moment().add(`${Math.round(route.response.route[0].summary.baseTime / 60)}`, 'm').format('LLL')}
           </p>
 
-          <p className='black avenir ba pa2'>
+          <p className='black avenir ba pa2 bg-white'>
           The total journey is {(route.response.route[0].summary.distance / 1000).toFixed(1)} KM
           </p>
 

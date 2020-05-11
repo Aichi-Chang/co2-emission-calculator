@@ -18,7 +18,7 @@ $purple: #E3D6F4;
 
 body {
   font-family: $primary-font;
-  background-color: #fff;
+  background-color: rgb(216, 237, 245);
   color: $main-color;
   height: 100vh;
 }
@@ -26,7 +26,7 @@ body {
 @mixin buttonStyle {
   font-family: $nav-font;
   background-color: $primary-color;
-  border: none;
+  border: .5px solid $dark-green;
   color: black;
   padding: 15px 25px;
   text-align: center;

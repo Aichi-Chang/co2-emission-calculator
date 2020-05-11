@@ -37,7 +37,15 @@ export default function Postcodes() {
       .then(res => {
         setLatLng(res.data)
       })
-      .catch(err => setErrors(err.response.data))
+      .catch(err => setErrors(err))
+  }
+
+  function errorPostcodes() {
+    if (latLng.result[0].result) {
+      return null
+    } else {
+      return <p className='red avenir flex justify-center'>Oops, the postcodes doesn't exist.</p>
+    }
   }
 
 
@@ -49,7 +57,7 @@ export default function Postcodes() {
 
       <div className='flex flex-column items-center'>
 
-        <div className='mt5-l mt4 mr3 ml3 mw6 mw9-l mb4'>
+        <div className='mt5 mr3 ml3 mw6 mw9-l mb4 ba pa4 bg-white'>
 
           <h2 className='mt5 '>Please Enter the Postcodes:</h2>
 
@@ -76,6 +84,8 @@ export default function Postcodes() {
             </button>
           </form>
 
+          {latLng && latLng.result ? errorPostcodes() : null} 
+
         </div>
         
         <PostcodesContext.Provider value={postcodes}>
@@ -83,14 +93,13 @@ export default function Postcodes() {
             postcodes={postcodes}
             latLng={latLng}
           />
-        </PostcodesContext.Provider>
-
-        
+        </PostcodesContext.Provider> 
+       
 
 
       </div>
 
-</div>
+    </div>
     
   )
 }

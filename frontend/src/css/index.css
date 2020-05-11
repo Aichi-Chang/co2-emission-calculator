@@ -7,7 +7,7 @@
 
 body {
   font-family: "Cabin", sans-serif;
-  background-color: #fff;
+  background-color: #d8edf5;
   color: #1e2bd8;
   height: 100vh;
 }
@@ -29,7 +29,7 @@ input:focus::placeholder {
 .button {
   font-family: "Archivo", sans-serif;
   background-color: #d8f0e7;
-  border: none;
+  border: 0.5px solid #90b391;
   color: black;
   padding: 15px 25px;
   text-align: center;
@@ -45,7 +45,7 @@ input:focus::placeholder {
 .small-button {
   font-family: "Archivo", sans-serif;
   background-color: #d8f0e7;
-  border: none;
+  border: 0.5px solid #90b391;
   color: black;
   padding: 15px 25px;
   text-align: center;

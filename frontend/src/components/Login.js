@@ -49,7 +49,7 @@ export default function Login(props) {
     <div className='vh-100 wh-100'>
       <div className='flex items-center justify-center'>
         <form 
-          className='flex flex-column mt6 w-40-l w-70'
+          className='flex flex-column mt6 w-40-l w-70 ba pa3 bg-white'
           onSubmit={(e) => handleSubmit(e)}
         >
           <input

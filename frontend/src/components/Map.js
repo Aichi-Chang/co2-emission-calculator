@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import MapGL, { Source, Layer, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { ms } from 'date-fns/esm/locale'
+
 
 require('dotenv').config()
 
@@ -23,8 +23,7 @@ export default function Map(props) {
   const [cordi, setCordi] = useState([])
   const [infoHomeS, setInfoHomeS] = useState(props.route.response.route[0].waypoint[0].mappedRoadName)
   const [infoHomeE, setInfoHomeE] = useState(props.route.response.route[0].waypoint[1].mappedRoadName)
-  const [singleInfoS, setSingleInfoS] = useState(props.singleData ? props.singleData.depart : null)
-  const [singleInfoE, setSingleInfoE] = useState(props.singleData ? props.singleData.arrive : null)
+
 
 
 
@@ -100,34 +99,6 @@ export default function Map(props) {
     ))
   }
 
-
-  function renderPopupSingleS() {
-    return (
-      props.singleInfoS && (
-        <Popup
-          longitude={props.singleData.departLon}
-          latitude={props.singleData.departLat}
-          closeOnClick={false}
-          onClose={() => setSingleInfoS(null)} 
-        >
-          {singleInfoS}
-        </Popup>
-      ))
-  } 
-
-  function renderPopupSingleE() {
-    return (
-      props.singleInfoE && (
-        <Popup
-          longitude={props.singleData.arrivalLon}
-          latitude={props.singleData.arrivalLat}
-          closeOnClick={false}
-          onClose={() => setSingleInfoE(null)} 
-        >
-          {singleInfoE}
-        </Popup>
-      ))
-  }
           
 
 
@@ -138,7 +109,7 @@ export default function Map(props) {
   return (
     <div>
       <MapGL
-        {...viewport}
+        {...props.route && { ...viewport }}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onViewportChange={(newViewport) => setViewport(newViewport)}
         mapboxApiAccessToken={token}
@@ -160,8 +131,6 @@ export default function Map(props) {
 
         {renderPopupHomeS()}
         {renderPopupHomeE()}
-        {renderPopupSingleS()}
-        {renderPopupSingleE()}
 
       </MapGL> 
     </div>

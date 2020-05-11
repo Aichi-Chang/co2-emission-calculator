@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Auth from '../lib/Auth'
 
 
-export default function User(props) {
+export default function User() {
 
   const [userData, setUserData] = useState()
 
@@ -32,22 +32,22 @@ export default function User(props) {
 
   return (
     
-    <div className='ml3 relative vh-100 overflow-hidden'>
+    <div className='ml3 mr3 '>
       
       {Auth.isAuthenticated() && 
-      <div className='mt6 mt4-l mr3-l ml3-l'>
+      <div className='mt4'>
         
-        <div className='flex flex-row-l flex-column items-center'>
-          <h2 className='mr4-l'>{Auth.getUser().username}'s Dahsboard</h2>
+        <div className='flex flex-row-l flex-column items-center-l items-start'>
+          <h2 className='mr4-l'>{Auth.getUser().username}'s Dahsboard </h2>
           <Link className='link black' to='/'><button className='small-button pointer grow'>Back to Search</button></Link>
         </div>
 
         <div className='mt3-l mb3-l'>
           <h3 className='black bb pa2'>Public Transport Routes: </h3>
           {userData[0].publicRoutes.map((direction, i) => {
-            return <div key={i} className='mb2'>
+            return <div key={i} className='mb2-l mb3 flex flex-column flex-column flex-row-l items-center-l'>
               <Link
-                className='link avenir dark-green grow mr3-l'
+                className='link avenir dark-green grow mr3-l mb2'
                 value={direction.travelBy}
                 key={direction.id}
                 index={i}
@@ -56,10 +56,10 @@ export default function User(props) {
                   type: `${direction.travelBy}` 
                 }}
               >
-                {direction.direction}
+                🟡 {direction.direction}
               </Link>
               <button
-                className='small-button pointer grow'
+                className='small-button pointer grow w-40 w-10-l'
                 value={direction.travelBy}
                 id={direction.id}
                 onClick={(e) => handleDeletePublic(e)}
@@ -71,9 +71,9 @@ export default function User(props) {
         <div className='mt3-l mb3-l'>
           <h3 className='black bb pa2'>Self-drive Routes: </h3>
           {userData[0].driveRoutes.map((direction, i) => {
-            return <div key={i} className='mb2'>
+            return <div key={i} className='mb2-l mb3 flex flex-column flex-column flex-row-l items-center-l '>
               <Link
-                className='link avenir dark-green grow mr3-l'
+                className='link avenir dark-green grow mr3-l mb2'
                 value={direction.travelBy}
                 key={direction.id}
                 index={i}
@@ -82,10 +82,10 @@ export default function User(props) {
                   type: `${direction.travelBy}` 
                 }}
               >
-                {direction.direction}
+                🟠 {direction.direction}
               </Link>
               <button
-                className='small-button pointer grow'
+                className='small-button pointer grow w-40 w-10-l'
                 value={direction.travelBy}
                 id={direction.id}
                 onClick={(e) => handleDeletePublic(e)}
@@ -95,12 +95,12 @@ export default function User(props) {
         </div>
 
         
-        <div className='mt3-l mb3-l'>
+        <div className='mt3-l mb3-l mb5'>
           <h3 className='black bb pa2'>Cycle Routes: </h3>
           {userData[0].cycleRoutes.map((direction, i) => {
-            return <div key={i} className='mb2'>
+            return <div key={i} className='mb2-l mb3 flex flex-column flex-row-l items-center-l'>
               <Link
-                className='link avenir dark-green grow mr3-l'
+                className='link avenir dark-green grow mr3-l mb2'
                 key={direction.id}
                 index={i}
                 to={{
@@ -108,10 +108,10 @@ export default function User(props) {
                   type: `${direction.travelBy}` 
                 }}
               >
-                {direction.direction}
+                🟢 {direction.direction}
               </Link>
               <button
-                className='small-button pointer grow'
+                className='small-button pointer grow w-40 w-10-l'
                 value={direction.travelBy}
                 id={direction.id}
                 onClick={(e) => handleDeletePublic(e)}

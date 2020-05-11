@@ -29,41 +29,45 @@ export default function SingleRoute(props) {
 
 
   return (
-    <div>
+    <div className='ml6 mr6 mt5 mt1-l'>
 
-      <button><Link to='/user'>Dashboard</Link></button>
-      <button><Link to='/'>Back to Search</Link></button>
+      <Link className='link black mb3' to='/'><button className='small-button pointer grow'>Back to Search</button></Link>
 
-      <div>
-        {singleData.travelBy === 'public' && <div>Travel with Public Transport</div>}
-        {singleData.travelBy === 'car' && <div>Self Driving</div>}
-        {singleData.travelBy === 'bicycle' && <div>Cycle with Your Bike</div>}
-      </div>
+      {Auth.isAuthenticated && <div className='pa3 bg-white ba mt3'>
+        <h2>
+          {singleData.travelBy === 'public' && <div>Travel with Public Transport</div>}
+          {singleData.travelBy === 'car' && <div>Self Driving</div>}
+          {singleData.travelBy === 'bicycle' && <div>Cycle with Your Bike</div>}
+        </h2>
 
-      <div>
-        {singleData.direction}
-      </div>
+        <p className='dark-green'>
+          {singleData.direction}
+        </p>
 
-      <div>
-        Depart at: {singleData.departTime}
-      </div>
+        <p className='dark-green'>
+          Depart at: {singleData.departTime}
+        </p>
 
-      <div>
-        Arrive at: {singleData.arriveTime}
-      </div>
+        <p className='dark-green'>
+          Arrive at: {singleData.arriveTime}
+        </p>
 
-      <div>
-        Carbon Print: {singleData.carbonPrint} Kilontons
-      </div>
+        <p className='dark-green'>
+          Carbon Print: <span className='gold'>{singleData.carbonPrint}</span> Kilontons
+        </p>
+        {/* 
+        {singleData && <Map 
+          singleData={singleData}
+        />} */}
 
-      {singleData && <Map 
-        singleData={singleData}
-      />}
+        <p className='dark-green'>Direction: </p>
 
-      {singleData.instruction.split(',').map((x, i) => {
-        return <div key={i}>{x}</div>
-      })}
-
+        {singleData.instruction.split(',').map((x, i) => {
+          return <p key={i} className='black avenir'>➡️ {x}</p>
+        })}
+      
+      </div>}
+      
     </div>
   )
 }
