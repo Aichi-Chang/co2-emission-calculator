@@ -18,7 +18,7 @@ class RegisterView(APIView):
             serializer.save()
             return Response({'message': 'Registration successful'})
 
-        return Response({'message':serializer.errors}, status=422)
+        return Response(status=422)
 
 
 
