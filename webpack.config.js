@@ -13,7 +13,8 @@ module.exports = {
   context: path.resolve(__dirname, 'frontend'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'frontend/dist')
+    path: path.resolve(__dirname, 'frontend/dist'),
+    publicPath: '/'
   },
   devtool: 'source-maps',
   module: {
@@ -46,7 +47,8 @@ module.exports = {
     env,
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      inject: 'body'
     })
   ],
   node: {
