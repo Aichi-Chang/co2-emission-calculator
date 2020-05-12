@@ -53,7 +53,7 @@ export default function Login(props) {
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type='email'
             name='email'
@@ -62,7 +62,7 @@ export default function Login(props) {
           />
           {errors.message && <small>{errors.message.email}</small>}
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type={!show ? 'password' : 'text'}
             name='password'

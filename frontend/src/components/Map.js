@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const token = process.env.REACT_MAP_KEY
 
-
+console.log(token)
 
 
 export default function Map(props) {

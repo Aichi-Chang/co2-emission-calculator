@@ -12,7 +12,7 @@ body {
   height: 100vh;
 }
 
-input {
+.input-style {
   font-family: "Cormorant Garamond", serif;
   border: 0;
   border-bottom: 1px solid black;
@@ -22,7 +22,7 @@ input {
   padding: 7px 0;
   transition: 0.3s ease;
 }
-input:focus::placeholder {
+.input-style:focus::placeholder {
   color: transparent;
 }
 
@@ -64,7 +64,7 @@ input:focus::placeholder {
   color: #E3D6F4;
 }
 
-.dark-green {
+.primary-green {
   color: #90b391;
 }
 

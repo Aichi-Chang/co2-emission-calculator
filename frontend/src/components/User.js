@@ -16,6 +16,8 @@ export default function User() {
       .then(res => setUserData(res.data))
   }, [])
 
+  // console.log(userData)
+
 
   function handleDeletePublic(e) {
     axios.delete(`api/routes/${e.target.value}/${e.target.id}/`, {
@@ -26,7 +28,7 @@ export default function User() {
 
 
   if (!userData) {
-    return <h3 className='ml3 flex justify-center'>Please <Link to='/login' className='dark-green'>login</Link> or <Link to='/register' className='dark-green'>sign up</Link> for full access of the dashboard.</h3>
+    return <h3 className='ml3 flex justify-center'>Please <Link to='/login' className='primary-green'>login</Link> or <Link to='/register' className='primary-green'>sign up</Link> for full access of the dashboard.</h3>
   }
 
 
@@ -47,7 +49,7 @@ export default function User() {
           {userData[0].publicRoutes.map((direction, i) => {
             return <div key={i} className='mb2-l mb3 flex flex-column flex-column flex-row-l items-center-l'>
               <Link
-                className='link avenir dark-green grow mr3-l mb2'
+                className='link avenir primary-green grow mr3-l mb2'
                 value={direction.travelBy}
                 key={direction.id}
                 index={i}
@@ -73,7 +75,7 @@ export default function User() {
           {userData[0].driveRoutes.map((direction, i) => {
             return <div key={i} className='mb2-l mb3 flex flex-column flex-column flex-row-l items-center-l '>
               <Link
-                className='link avenir dark-green grow mr3-l mb2'
+                className='link avenir primary-green grow mr3-l mb2'
                 value={direction.travelBy}
                 key={direction.id}
                 index={i}
@@ -100,7 +102,7 @@ export default function User() {
           {userData[0].cycleRoutes.map((direction, i) => {
             return <div key={i} className='mb2-l mb3 flex flex-column flex-row-l items-center-l'>
               <Link
-                className='link avenir dark-green grow mr3-l mb2'
+                className='link avenir primary-green grow mr3-l mb2'
                 key={direction.id}
                 index={i}
                 to={{

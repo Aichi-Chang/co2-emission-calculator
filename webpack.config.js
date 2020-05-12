@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV === 'production' ? (
   new Dotenv()
 )
 
+
 module.exports = {
   entry: './src/app.js',
   context: path.resolve(__dirname, 'frontend'),

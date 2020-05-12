@@ -40,19 +40,19 @@ export default function SingleRoute(props) {
           {singleData.travelBy === 'bicycle' && <div>Cycle with Your Bike</div>}
         </h2>
 
-        <p className='dark-green'>
+        <p className='primary-green'>
           {singleData.direction}
         </p>
 
-        <p className='dark-green'>
+        <p className='primary-green'>
           Depart at: {singleData.departTime}
         </p>
 
-        <p className='dark-green'>
+        <p className='primary-green'>
           Arrive at: {singleData.arriveTime}
         </p>
 
-        <p className='dark-green'>
+        <p className='primary-green'>
           Carbon Print: <span className='gold'>{singleData.carbonPrint}</span> Kilontons
         </p>
         {/* 
@@ -60,7 +60,7 @@ export default function SingleRoute(props) {
           singleData={singleData}
         />} */}
 
-        <p className='dark-green'>Direction: </p>
+        <p className='primary-green'>Direction: </p>
 
         {singleData.instruction.split(',').map((x, i) => {
           return <p key={i} className='black avenir'>➡️ {x}</p>

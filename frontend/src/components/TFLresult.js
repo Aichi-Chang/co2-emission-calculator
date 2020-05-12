@@ -116,7 +116,7 @@ export default function TFLresult(props) {
   return (
     <div className='flex flex-column items-center vw-100'>
 
-      <div className='pa6 border-style w-100-l w-70'></div>
+      <div className='pa4 border-style w-100-l w-70'></div>
 
 
       <div className='mt4-l mt3 flex mw9 flex-column justify-center'>

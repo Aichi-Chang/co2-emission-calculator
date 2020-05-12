@@ -8,7 +8,7 @@ $nav-font: 'Archivo', sans-serif;
 $main-color:  #1e2bd8;
 $primary-color: rgb(216, 240, 231);
 $gray: rgb(128, 128, 128);
-$dark-green: #90b391;
+$primary-green: #90b391;
 $purple: #E3D6F4;
 
 * {
@@ -26,7 +26,7 @@ body {
 @mixin buttonStyle {
   font-family: $nav-font;
   background-color: $primary-color;
-  border: .5px solid $dark-green;
+  border: .5px solid $primary-green;
   color: black;
   padding: 15px 25px;
   text-align: center;
@@ -34,13 +34,13 @@ body {
   display: inline-block;
   font-size: 16px;
   &:hover {
-    background-color: $dark-green;
+    background-color: $primary-green;
     transition: 0.3s;
   }
 }
 
 
-input {
+.input-style {
   font-family: $secondery-font;
   border: 0;
   border-bottom: 1px solid black;
@@ -70,8 +70,8 @@ input {
   color: $purple;
 }
 
-.dark-green {
-  color: $dark-green;
+.primary-green {
+  color: $primary-green;
 }
 
 .blue-color {

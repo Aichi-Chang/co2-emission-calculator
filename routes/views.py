@@ -206,7 +206,7 @@ class TravelerSingleView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request, _pk):
+    def get(self, request):
         traveler = User.objects.filter(id=request.user.id)
         serialized_with_all_routes = NestedTravelerSerializer(traveler, many=True)
 

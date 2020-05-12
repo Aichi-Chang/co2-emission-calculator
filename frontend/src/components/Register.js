@@ -56,7 +56,7 @@ export default function Register(props) {
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type='text'
             name='username'
@@ -65,7 +65,7 @@ export default function Register(props) {
           />
           {errors.message && <small>{errors.message.username}</small>}
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type='email'
             name='email'
@@ -74,7 +74,7 @@ export default function Register(props) {
           />
           {errors.message && <small>{errors.message.email}</small>}
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type={!show ? 'password' : 'text'}
             name='password'
@@ -83,7 +83,7 @@ export default function Register(props) {
           />
           {errors.message && <small>{errors.message.password}</small>}
           <input
-            className='ma3'
+            className='ma3 input-style'
             onChange={(e) => handleChange(e)}
             type={!show ? 'password' : 'text'}
             name='password_confirmation'
