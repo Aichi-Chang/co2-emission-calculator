@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import Auth from '../lib/Auth'
-import Map from './Map'
+
 
 
 
@@ -29,11 +29,11 @@ export default function SingleRoute(props) {
 
 
   return (
-    <div className='ml6 mr6 mt5 mt1-l'>
+    <div className='ml6-l mr6-l mt5 mt1-l mr3 ml3 mb5 flex flex-column'>
 
       <Link className='link black mb3' to='/'><button className='small-button pointer grow'>Back to Search</button></Link>
 
-      {Auth.isAuthenticated && <div className='pa3 bg-white ba mt3'>
+      {Auth.isAuthenticated && <div className='pa3 bg-white ba mt3 '>
         <h2>
           {singleData.travelBy === 'public' && <div>Travel with Public Transport</div>}
           {singleData.travelBy === 'car' && <div>Self Driving</div>}

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import TFLresult from './TFLresult'
-import Auth from '../lib/Auth'
+
+
+
 
 export const PostcodesContext = React.createContext()
 export const RoutesContext = React.createContext()
-
 
 
 export default function Postcodes() {

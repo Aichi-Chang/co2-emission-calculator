@@ -16,7 +16,6 @@ export default function User() {
       .then(res => setUserData(res.data))
   }, [])
 
-  // console.log(userData)
 
 
   function handleDeletePublic(e) {
