@@ -110,7 +110,7 @@ export default function TFLresult(props) {
     
  
   if (!route) {
-    return <div className='mt3'>That's see how much CO2 emissions the route creates 👣</div>
+    return <div className='mt3'>That's see how much carbon footprint the route creates 👣</div>
   }
 
   return (
